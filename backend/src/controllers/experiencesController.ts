@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "../middleware/authMiddleware";
 import db from "../db/connections";
+import cloudinary from "../config/cloudinary";
 
 // Helper: get couple_id from userId
 const getCoupleId = async (userId: number): Promise<number | null> => {
@@ -76,11 +77,33 @@ export const completeExperience = async (req: AuthRequest, res: Response) => {
       return res.status(404).json({ message: "Experience not found" });
     }
 
+    // Require a photo
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ message: "A photo is required to complete this experience" });
+    }
+
+    // Upload to Cloudinary
+    const uploadResult = await new Promise<{ secure_url: string }>(
+      (resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "dearUs/experiences" },
+          (error, result) => {
+            if (error || !result) return reject(error);
+            resolve(result);
+          },
+        );
+        stream.end(req.file!.buffer);
+      },
+    );
+
     const [updated] = await db("experiences")
       .where({ id })
       .update({
         is_completed: true,
         completed_at: new Date(),
+        photo_url: uploadResult.secure_url,
       })
       .returning("*");
 
