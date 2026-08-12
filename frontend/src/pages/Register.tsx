@@ -91,8 +91,13 @@ export const Register = () => {
 
   return (
     <div className="fixed inset-0 flex items-center bg-[#fff6d2]">
+      {/* Left Side */}
+      <div className="flex-1 min-w-0 h-full text-7xl font-bold items-center flex flex-col justify-center bg-white text-center overflow-hidden">
+        <span className="text-[#371400]">Create your</span>
+        <span className="text-[#a4544b]">account</span>
+      </div>
       {/* Form Side */}
-      <div className="flex-none w-200 min-w-[320px] flex flex-col justify-center h-full z-10 items-center">
+      <div className="flex-none w-200 min-w-[50%] flex flex-col justify-center h-full z-10 items-center">
         <div className="flex flex-col gap-2">
           <p className="text-3xl font-bold text-[#371400]">
             Dear<span className="text-[#a4544b]">Us</span>
@@ -173,11 +178,6 @@ export const Register = () => {
             </button>
           </span>
         </form>
-      </div>
-      {/* Left Side */}
-      <div className="flex-1 min-w-0 h-full text-7xl font-bold items-center flex flex-col justify-center bg-white text-center overflow-hidden">
-        <span className="text-[#371400]">Create your</span>
-        <span className="text-[#a4544b]">account</span>
       </div>
     </div>
   );

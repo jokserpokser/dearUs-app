@@ -64,8 +64,8 @@ export const Login = () => {
     <div className="fixed inset-0 flex items-center bg-[#fff6d2]">
       <div className="flex-1 min-w-0 h-full flex flex-col justify-center items-center text-center overflow-hidden">
         <div className="flex flex-col gap-2 items-start">
-          <span className="text-5xl font-bold text-[#371400]">Sign in to</span>
-          <span className="text-5xl font-bold text-[#a4544b]">DearUs</span>
+          <span className="text-7xl font-bold text-[#371400]">Sign in to</span>
+          <span className="text-7xl font-bold text-[#a4544b]">DearUs</span>
           <span className="mt-4 text-[#545454] text-sm">
             Your memories and moments are waiting for you.
           </span>
