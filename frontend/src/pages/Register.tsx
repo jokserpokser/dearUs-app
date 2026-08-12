@@ -163,7 +163,7 @@ export const Register = () => {
               {generalError}
             </span>
           )}
-          <span className="text-sm text-[#545454]">
+          <span className="text-xs text-[#545454]">
             Already have an account?{" "}
             <button
               className="text-[#a4544b] font-semibold hover:underline hover:cursor-pointer"

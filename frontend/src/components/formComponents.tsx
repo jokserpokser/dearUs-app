@@ -18,9 +18,9 @@ export const InputField = ({
   onChange,
 }: InputFieldProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       {label && (
-        <label className="text-[#545454] font-medium self-start text-sm">
+        <label className="text-[#545454] font-medium self-start text-xs">
           {label}
         </label>
       )}
@@ -33,7 +33,9 @@ export const InputField = ({
         className={`text-[#202020] text-sm p-1 border-2 rounded-sm bg-white border-[#968c87] focus:outline-none focus:border-[#4b2723] transition-colors duration-300 `}
       />
       {errorMessage && (
-        <span className="text-red-500 text-xs text-start">{errorMessage}</span>
+        <span className="text-red-500 text-xs text-start -mt-2">
+          {errorMessage}
+        </span>
       )}
     </div>
   );
