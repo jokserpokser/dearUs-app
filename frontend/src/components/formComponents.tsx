@@ -4,7 +4,7 @@ interface InputFieldProps {
   name: string;
   value: string;
   placeholder?: string;
-  hasError?: boolean;
+  errorMessage?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -14,11 +14,11 @@ export const InputField = ({
   name,
   value,
   placeholder,
-  hasError,
+  errorMessage,
   onChange,
 }: InputFieldProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {label && (
         <label className="text-[#545454] font-medium self-start text-sm">
           {label}
@@ -30,8 +30,11 @@ export const InputField = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className={`text-[#202020] p-2 border rounded-lg bg-white ${hasError ? "border-red-500" : "border-[#968c87]"}`}
+        className={`text-[#202020] text-sm p-1 border-2 rounded-sm bg-white border-[#968c87] focus:outline-none focus:border-[#4b2723] transition-colors duration-300 `}
       />
+      {errorMessage && (
+        <span className="text-red-500 text-xs text-start">{errorMessage}</span>
+      )}
     </div>
   );
 };
@@ -40,7 +43,7 @@ export const SubmitButton = ({ text }: { text: string }) => {
   return (
     <button
       type="submit"
-      className="bg-white text-[#512b16] font-semibold py-4 px-6 w-full rounded-lg hover:bg-[#e0e0d1] transition-colors duration-300 hover:cursor-pointer"
+      className="bg-white text-[#512b16] font-semibold py-2 px-5 w-full rounded-lg hover:bg-[#e0e0d1] transition-colors duration-300 hover:cursor-pointer border-2"
     >
       {text}
     </button>
