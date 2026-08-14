@@ -6,18 +6,53 @@ import { Dashboard } from "./pages/Dashboard.tsx";
 import { Home } from "./pages/Home.tsx";
 import { useAuth } from "./context/AuthContext";
 
-function App() {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
 
+  return user ? <>{children}</> : <Navigate to="/login" replace />;
+}
+
+function PublicRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+
+  return user ? <Navigate to="/dashboard" replace /> : <>{children}</>;
+}
+
+function App() {
   return (
     <Routes>
       <Route
         path="/"
-        element={user ? <Navigate to="/dashboard" replace /> : <Home />}
+        element={
+          <PublicRoute>
+            <Home />
+          </PublicRoute>
+        }
       />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
