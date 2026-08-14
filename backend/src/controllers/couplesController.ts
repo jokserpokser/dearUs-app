@@ -7,6 +7,7 @@ import { generateInviteCode } from "../utils/generateInviteCode";
 export const createCouple = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user!.userId;
+    const { anniversary, endearment } = req.body;
 
     const user = await db("users").where({ id: userId }).first();
 
@@ -17,7 +18,11 @@ export const createCouple = async (req: AuthRequest, res: Response) => {
     const inviteCode = generateInviteCode();
 
     const [couple] = await db("couples")
-      .insert({ invite_code: inviteCode })
+      .insert({
+        invite_code: inviteCode,
+        anniversary: anniversary || null,
+        endearment: endearment || null,
+      })
       .returning("*");
 
     await db("users").where({ id: userId }).update({ couple_id: couple.id });
