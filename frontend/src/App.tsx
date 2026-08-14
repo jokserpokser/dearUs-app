@@ -5,6 +5,8 @@ import { Register } from "./pages/Register.tsx";
 import { Dashboard } from "./pages/Dashboard.tsx";
 import { Home } from "./pages/Home.tsx";
 import { useAuth } from "./context/AuthContext";
+import { CreateCouple } from "./pages/CreateCouple.tsx";
+import { ManageCouple } from "./pages/ManageCouple.tsx";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
@@ -53,6 +55,23 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/create-couple"
+        element={
+          <ProtectedRoute>
+            <CreateCouple />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/manage-couple"
+        element={
+          <ProtectedRoute>
+            <ManageCouple />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

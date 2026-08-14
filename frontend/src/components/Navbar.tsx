@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const homeTarget = user ? "/dashboard" : "/";
 
   return (
@@ -17,6 +17,12 @@ export const Navbar = () => {
       >
         Dear<span className="text-[#a4544b]">Us</span>
       </Link>
+      <span
+        className="ml-auto text-sm font-medium text-[#4b2723] hover:cursor-pointer"
+        onClick={logout}
+      >
+        Logout
+      </span>
     </nav>
   );
 };

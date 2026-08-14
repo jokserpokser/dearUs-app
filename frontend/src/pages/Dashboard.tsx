@@ -2,8 +2,10 @@ import { CommonButton } from "../components/CommonComponents";
 import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import heartIcon from "../assets/icons/drawn-heart-icon.png";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   return (
@@ -28,11 +30,24 @@ export const Dashboard = () => {
               Our bucket lists, photos, milestones, and all the little
               adventures that make us, us.
             </span>
-            {!user?.couple_id && (
+            {!user?.couple_id ? (
               <div className="flex flex-col gap-3 self-start text-sm w-full text-[#545454] font-semibold">
                 You are not in a couple yet.
-                <CommonButton text="Join a couple" />
-                <CommonButton text="Create a couple" />
+                <CommonButton
+                  text="Join a couple"
+                  onClick={() => navigate("/join-couple")}
+                />
+                <CommonButton
+                  text="Create a couple"
+                  onClick={() => navigate("/create-couple")}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3 self-start text-sm w-full text-[#545454] font-semibold">
+                <CommonButton
+                  text="Manage your Couple"
+                  onClick={() => navigate("/manage-couple")}
+                />
               </div>
             )}
           </div>

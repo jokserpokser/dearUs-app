@@ -5,6 +5,8 @@ interface InputFieldProps {
   value: string;
   placeholder?: string;
   errorMessage?: string;
+  labelCenter?: boolean;
+  textCenter?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -15,12 +17,16 @@ export const InputField = ({
   value,
   placeholder,
   errorMessage,
+  labelCenter,
+  textCenter,
   onChange,
 }: InputFieldProps) => {
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label className="text-[#545454] font-medium self-start text-xs">
+        <label
+          className={`text-[#545454] font-medium text-xs ${labelCenter ? "self-center" : "self-start"}`}
+        >
           {label}
         </label>
       )}
@@ -30,7 +36,7 @@ export const InputField = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className={`text-[#202020] text-sm p-1 border-2 rounded-sm bg-white border-[#968c87] focus:outline-none focus:border-[#4b2723] transition-colors duration-300 `}
+        className={`text-[#202020] text-sm p-1 border-2 rounded-sm ${textCenter ? "text-center" : "text-left"} bg-white border-[#968c87] focus:outline-none focus:border-[#4b2723] transition-colors duration-300 `}
       />
       {errorMessage && (
         <span className="text-red-500 text-xs text-start -mt-2">
