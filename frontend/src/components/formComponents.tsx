@@ -57,3 +57,25 @@ export const SubmitButton = ({ text }: { text: string }) => {
     </button>
   );
 };
+
+export const ReadOnlyInputField = ({
+  label,
+  value,
+}: {
+  label?: string;
+  value: string;
+}) => {
+  return (
+    <div className="flex flex-col gap-2">
+      {label && (
+        <label className="text-[#545454] font-medium text-sm">{label}</label>
+      )}
+      <input
+        type="text"
+        value={value}
+        readOnly
+        className="text-[#202020] text-sm p-1 border-2 rounded-sm bg-[#f5f5f5] border-[#968c87] focus:outline-none text-center"
+      />
+    </div>
+  );
+};
