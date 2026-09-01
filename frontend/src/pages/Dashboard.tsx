@@ -1,9 +1,9 @@
-import { CommonButton } from "../components/CommonComponents";
+import { CommonButton, DashboardItem } from "../components/CommonComponents";
 import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import heartIcon from "../assets/icons/drawn-heart-icon.png";
 import { useNavigate } from "react-router-dom";
-
+import { ListTodo, Asterisk } from "lucide-react";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -53,9 +53,39 @@ export const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex-none bg-[#fff5cd] w-[70%] min-w-[320px] flex flex-col justify-center h-screen z-10 items-center">
-          <div className="flex flex-col gap-3 items-center">
-            <span className="mt-4 text-black text-base max-w-md text-[24.5px]"></span>
+        <div className="flex-none bg-[#fff5cd] w-[70%] min-w-[320px] flex flex-col justify-center h-screen z-10 items-center ">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-40">
+            {/* Items for Navigation */}
+            <DashboardItem
+              label="Bucket List"
+              icon={ListTodo}
+              onClick={() => navigate("/bucket-list")}
+            />
+            <DashboardItem
+              label="Coming Soon"
+              icon={Asterisk}
+              onClick={() => {}}
+            />
+            <DashboardItem
+              label="Coming Soon"
+              icon={Asterisk}
+              onClick={() => {}}
+            />
+            <DashboardItem
+              label="Coming Soon"
+              icon={Asterisk}
+              onClick={() => {}}
+            />
+            <DashboardItem
+              label="Coming Soon"
+              icon={Asterisk}
+              onClick={() => {}}
+            />
+            <DashboardItem
+              label="Coming Soon"
+              icon={Asterisk}
+              onClick={() => {}}
+            />
           </div>
         </div>
       </div>
