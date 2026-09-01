@@ -1,9 +1,7 @@
-import { CommonButton, DashboardItem } from "../components/CommonComponents";
+import { CommonButton } from "../components/CommonComponents";
 import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
-import heartIcon from "../assets/icons/drawn-heart-icon.png";
 import { useNavigate } from "react-router-dom";
-import { ListTodo, Asterisk } from "lucide-react";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -11,16 +9,8 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center bg-white overflow-y-auto">
+      <div className="min-h-screen ml-69 flex items-center bg-[#FFEDEA] overflow-y-auto">
         <div className="flex-1 min-w-0 h-screen flex flex-col items-center text-center justify-center">
-          <span className="bg-[#fff5cd] px-3 py-3 rounded-3xl text-black mb-10">
-            <img
-              src={heartIcon}
-              alt="heart"
-              className="w-6 h-6 inline-block mr-2"
-            />
-            {user?.name}
-          </span>
           <div className="flex flex-col gap-6 items-center text-7xl max-w-175 w-[60%] text-start">
             <span className="font-bold text-black">
               Every moment we make{" "}
@@ -52,42 +42,15 @@ export const Dashboard = () => {
             )}
           </div>
         </div>
-
-        <div className="flex-none bg-[#fff5cd] w-[70%] min-w-[320px] flex flex-col justify-center h-screen z-10 items-center ">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-40">
-            {/* Items for Navigation */}
-            <DashboardItem
-              label="Bucket List"
-              icon={ListTodo}
-              onClick={() => navigate("/bucket-list")}
-            />
-            <DashboardItem
-              label="Coming Soon"
-              icon={Asterisk}
-              onClick={() => {}}
-            />
-            <DashboardItem
-              label="Coming Soon"
-              icon={Asterisk}
-              onClick={() => {}}
-            />
-            <DashboardItem
-              label="Coming Soon"
-              icon={Asterisk}
-              onClick={() => {}}
-            />
-            <DashboardItem
-              label="Coming Soon"
-              icon={Asterisk}
-              onClick={() => {}}
-            />
-            <DashboardItem
-              label="Coming Soon"
-              icon={Asterisk}
-              onClick={() => {}}
-            />
-          </div>
-        </div>
+        <div
+          className="flex-none w-[70%] min-w-[320px] flex flex-col justify-center h-screen z-10 items-center"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255, 218, 213, 0.5), rgba(255, 218, 213, 0.5)), url(/src/assets/images/CoupleBG.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
       </div>
     </>
   );

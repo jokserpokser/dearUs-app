@@ -9,7 +9,7 @@ export const CommonButton = ({
 }) => {
   return (
     <button
-      className="w-full border-black border text-black font-semibold py-2 px-4 rounded hover:bg-[#f5cfb6] hover:*:text-white transition-colors duration-300 cursor-pointer *"
+      className="w-full border border-black text-black bg-white font-semibold py-3 px-4 rounded-4xl hover:bg-[#FFDAD5] hover:*:text-white transition-colors duration-300 cursor-pointer *"
       onClick={onClick}
     >
       {text}
