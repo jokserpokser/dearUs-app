@@ -61,20 +61,24 @@ export const SubmitButton = ({ text }: { text: string }) => {
 export const ReadOnlyInputField = ({
   label,
   value,
+  shaded = false,
 }: {
   label?: string;
   value: string;
+  shaded?: boolean;
 }) => {
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label className="text-[#545454] font-medium text-sm">{label}</label>
+        <label className="text-[#545454] font-medium text-sm text-left">
+          {label}
+        </label>
       )}
       <input
         type="text"
         value={value}
         readOnly
-        className="text-[#202020] text-sm p-1 border-2 rounded-sm bg-[#f5f5f5] border-[#968c87] focus:outline-none text-center"
+        className={`text-[#202020] text-sm p-2 border-2 rounded-lg ${shaded ? "bg-[#FFEDEA]" : "bg-white"} border-[#a4544b2f] focus:outline-none text-center`}
       />
     </div>
   );

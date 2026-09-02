@@ -3,6 +3,7 @@ import { CouplesService } from "../services/CouplesService";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { ReadOnlyInputField } from "../components/formComponents";
+import { Copy } from "lucide-react";
 
 interface Couple {
   id: number;
@@ -92,33 +93,50 @@ export const ManageCouple = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#fff6d2] p-8">
-        <div className="mb-12 mt-20 text-start">
-          <p className="text-2xl text-[#545454] font-semibold">Manage Couple</p>
+      <div className="min-h-screen bg-[#fff6d2] ml-69">
+        <div className="mb-12 mt-20 max-w-2xl mx-auto">
+          <h1 className="text-[#693B20] font-semibold text-left">
+            Manage Couple
+          </h1>
+          <p className="text-[#A4544B] text-md text-left">
+            Update your relationship details and connection.
+          </p>
         </div>
-        <div className="max-w-2xl mx-auto flex flex-col items-center justify-center">
-          {/* Header */}
-
-          {/* Invitation Code Section */}
-          <div className="flex flex-col w-80 gap-6">
-            <span onClick={handleCopyCode} className="cursor-pointer">
-              <ReadOnlyInputField
-                label="Couple Invite Code"
-                value={couple.invite_code}
+        <div className="bg-white p-10 max-w-2xl mx-auto flex flex-col items-center justify-center rounded-4xl gap-5">
+          <div className="relative flex flex-col text-left bg-[#FFEDEA] border border-[#b25f5631] p-4 rounded-2xl text-[#A4544B] w-full">
+            <span className="font-medium mb-2">Couple Invite Code:</span>
+            <span
+              className="font-medium text-4xl text-[#B25F56] mb-1 flex flex-row items-center gap-2"
+              style={{ fontFamily: "Literata" }}
+            >
+              {couple.invite_code}
+              <Copy
+                className="w-5 h-5 text-[#B25F56] hover:cursor-pointer"
+                onClick={handleCopyCode}
               />
               {copiedCode && (
-                <span className="text-[#10b981] text-sm mt-1">Copied!</span>
+                <span className="text-[#B25F56] text-sm mt-1">Copied!</span>
               )}
             </span>
 
-            <ReadOnlyInputField
-              label="Partner 1"
-              value={members[0]?.name || "N/A"}
-            />
-            <ReadOnlyInputField
-              label="Partner 2"
-              value={members[1]?.name || "Waiting for partner..."}
-            />
+            <span className="text-sm">
+              Share this code with your partner to connect.
+            </span>
+          </div>
+          {/* Invitation Code Section */}
+          <div className="flex flex-col gap-6 w-full">
+            <span className="grid grid-cols-2 gap-4">
+              <ReadOnlyInputField
+                label="Partner 1"
+                value={members[0]?.name || "N/A"}
+              />
+              <ReadOnlyInputField
+                label="Partner 2"
+                value={members[1]?.name || "Waiting for partner..."}
+                shaded={members[1] ? false : true}
+              />
+            </span>
+
             <ReadOnlyInputField
               label="Together Since"
               value={coupleAnniversary}
@@ -133,7 +151,7 @@ export const ManageCouple = () => {
           <div className="mt-8 flex gap-4 justify-center">
             <button
               onClick={() => navigate("/dashboard")}
-              className="px-8 py-3 bg-[#a4544b] text-white font-semibold rounded-lg hover:bg-[#8b3d36] hover:cursor-pointer transition-colors duration-300"
+              className="px-8 py-3 bg-[#B25F56] text-white font-semibold rounded-lg hover:bg-[#b25f56d8] hover:cursor-pointer transition-colors duration-300"
             >
               Go to Dashboard
             </button>

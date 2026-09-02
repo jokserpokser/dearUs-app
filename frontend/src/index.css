@@ -83,8 +83,6 @@ h4,
 h5,
 h6 {
   font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
 }
 
 h1 {
