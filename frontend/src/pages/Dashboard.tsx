@@ -9,7 +9,7 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen ml-69 flex items-center bg-[#FFEDEA] overflow-y-auto">
+      <div className="min-h-screen ml-69 flex items-center bg-white overflow-y-auto">
         <div className="flex-1 min-w-0 h-screen flex flex-col items-center text-center justify-center">
           <div className="flex flex-col gap-6 items-center text-7xl max-w-175 w-[60%] text-start">
             <span className="font-bold text-black">

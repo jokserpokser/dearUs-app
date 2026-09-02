@@ -7,6 +7,7 @@ import { Home } from "./pages/Home.tsx";
 import { useAuth } from "./context/AuthContext";
 import { CreateCouple } from "./pages/CreateCouple.tsx";
 import { ManageCouple } from "./pages/ManageCouple.tsx";
+import { Experiences } from "./pages/Experiences.tsx";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
@@ -68,6 +69,14 @@ function App() {
         element={
           <ProtectedRoute>
             <ManageCouple />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/experiences"
+        element={
+          <ProtectedRoute>
+            <Experiences />
           </ProtectedRoute>
         }
       />
