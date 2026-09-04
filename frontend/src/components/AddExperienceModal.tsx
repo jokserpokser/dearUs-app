@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Heart, Plus } from "lucide-react";
 import { InputField } from "./formComponents";
+import { ExperiencesService } from "../services/ExperiencesService";
 
 interface ModalOptions {
   isOpen: boolean;
@@ -16,8 +17,9 @@ export const AddExperienceModal = ({
   const [notes, setNotes] = useState("");
 
   const [titleErrorMessage, setTitleErrorMessage] = useState("");
+  const [generalError, setGeneralError] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle form submission logic here
     console.log("Title:", title);
@@ -26,6 +28,20 @@ export const AddExperienceModal = ({
       setTitleErrorMessage("Title is required.");
       return;
     }
+
+    const experienceData = {
+      title,
+      notes,
+    };
+
+    try {
+      await ExperiencesService.addExperience(experienceData);
+    } catch (error) {
+      console.error(error);
+      setGeneralError(true);
+      return;
+    }
+
     // Close the modal after submission
     modalOptions.setIsOpen(false);
   };
@@ -93,6 +109,11 @@ export const AddExperienceModal = ({
                   Add to Experiences
                 </button>
               </div>
+              {generalError && (
+                <span className="text-red-500 text-xs">
+                  Unable to add Experience. Please try again.
+                </span>
+              )}
             </form>
           </div>
         </div>
