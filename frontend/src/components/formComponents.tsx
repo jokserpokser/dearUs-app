@@ -7,6 +7,8 @@ interface InputFieldProps {
   errorMessage?: string;
   labelCenter?: boolean;
   textCenter?: boolean;
+  multiline?: boolean;
+  required?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -19,29 +21,41 @@ export const InputField = ({
   errorMessage,
   labelCenter,
   textCenter,
+  multiline = false,
+  required = false,
   onChange,
 }: InputFieldProps) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1">
       {label && (
         <label
-          className={`text-[#545454] font-medium text-xs ${labelCenter ? "self-center" : "self-start"}`}
+          className={`text-sm font-semibold text-[#462613] ${labelCenter ? "self-center" : "self-start"}`}
         >
-          {label}
+          {label} {required && <span className="text-[#B37068]">*</span>}
         </label>
       )}
-      <input
-        type={type}
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        className={`text-[#202020] text-sm p-1 border-2 rounded-sm ${textCenter ? "text-center" : "text-left"} bg-white border-[#968c87] focus:outline-none focus:border-[#4b2723] transition-colors duration-300 `}
-      />
+      {multiline ? (
+        <textarea
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          onChange={
+            onChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>
+          }
+          className={`text-sm p-2 border-2 text-[#A16A4B] bg-[#FDFBF7] border-[#F2E4CE] rounded-md ${textCenter ? "text-center" : "text-left"} focus:outline-none focus:ring-2 focus:ring-[#A16A4B]`}
+        />
+      ) : (
+        <input
+          type={type}
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          className={`text-sm p-2 border-2 text-[#A16A4B] bg-[#FDFBF7] border-[#F2E4CE] rounded-md ${textCenter ? "text-center" : "text-left"} focus:outline-none focus:ring-2 focus:ring-[#A16A4B]`}
+        />
+      )}
       {errorMessage && (
-        <span className="text-red-500 text-xs text-start -mt-2">
-          {errorMessage}
-        </span>
+        <span className="text-red-500 text-xs text-start">{errorMessage}</span>
       )}
     </div>
   );

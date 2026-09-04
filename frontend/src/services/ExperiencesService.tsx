@@ -10,4 +10,13 @@ export const ExperiencesService = {
       throw error;
     }
   },
+  addExperience: async (experienceData: { title: string; notes: string }) => {
+    try {
+      const response = await axiosInstance.post("/experiences", experienceData);
+      return response.data;
+    } catch (error) {
+      console.error("Error adding experience:", error);
+      throw error;
+    }
+  },
 };

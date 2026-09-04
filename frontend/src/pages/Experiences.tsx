@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Plus, Heart } from "lucide-react";
 import { ExperiencesService } from "../services/ExperiencesService";
+import { AddExperienceModal } from "../components/AddExperienceModal";
 
 export const Experiences = () => {
   const [experiences, setExperiences] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchExperiences = async () => {
@@ -22,13 +24,19 @@ export const Experiences = () => {
   return (
     <>
       <Navbar />
+      <AddExperienceModal
+        modalOptions={{ isOpen: isModalOpen, setIsOpen: setIsModalOpen }}
+      />
       <div className="bg-[#fff6f4] h-screen ml-69">
         <div
           className="flex flex-row bg-[#FFEDEA] text-[#a4544b] font-semibold text-xl p-4 text-left justify-between items-center px-10"
           style={{ fontFamily: "Literata" }}
         >
           Experiences
-          <button className="flex flex-row text-sm justify-center items-center gap-2 bg-[#B25F56] hover:bg-[#A4544B] text-white py-2 px-4 transition-all duration-300 rounded-4xl hover:cursor-pointer">
+          <button
+            className="flex flex-row text-sm justify-center items-center gap-2 bg-[#B25F56] hover:bg-[#A4544B] text-white py-2 px-4 transition-all duration-300 rounded-4xl hover:cursor-pointer"
+            onClick={() => setIsModalOpen(true)}
+          >
             <Plus size={14} />
             Add Experiences
           </button>
