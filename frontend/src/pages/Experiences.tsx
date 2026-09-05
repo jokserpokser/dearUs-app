@@ -60,21 +60,21 @@ export const Experiences = () => {
       )}
       <div className="min-h-screen bg-[#fff6f4] pt-16 md:ml-69 md:pt-0">
         <div
-          className="flex flex-row bg-[#FFEDEA] text-[#a4544b] font-semibold text-xl p-4 text-left justify-between items-center px-10"
+          className="flex flex-row items-start justify-between gap-3 bg-[#FFEDEA] p-4 text-left text-xl font-semibold text-[#a4544b] sm:flex-row sm:items-center sm:px-6 lg:px-10"
           style={{ fontFamily: "Literata" }}
         >
           Experiences
           <button
-            className="flex flex-row text-sm justify-center items-center gap-2 bg-[#B25F56] hover:bg-[#A4544B] text-white py-2 px-4 transition-all duration-300 rounded-4xl hover:cursor-pointer"
+            className="flex flex-row items-center justify-center gap-2 rounded-4xl bg-[#B25F56] px-4 py-2 text-sm text-white transition-all duration-300 hover:cursor-pointer hover:bg-[#A4544B]"
             onClick={() => setIsModalOpen(true)}
           >
             <Plus size={14} />
             Add Experiences
           </button>
         </div>
-        <div className="flex flex-col gap-2 p-20 text-[#a4544b] text-sm text-left">
+        <div className="flex flex-col gap-2 p-6 text-left text-sm text-[#a4544b] sm:p-10 lg:p-20">
           <span
-            className="text-5xl text-[#371400] font-bold"
+            className="text-3xl font-bold text-[#371400] sm:text-5xl"
             style={{ fontFamily: "Literata" }}
           >
             Our Shared Experiences
@@ -83,7 +83,7 @@ export const Experiences = () => {
         </div>
         <div className="flex flex-col text-[#4E260B] justify-center items-center">
           {experiences.length <= 0 ? (
-            <div className="flex flex-col max-w-100 gap-4 items-center">
+            <div className="flex w-full max-w-100 flex-col items-center gap-4 px-6">
               <div className="flex bg-[#FFEDEA] rounded-full w-40 h-40 justify-center items-center">
                 <Heart size={80} color="#A4544B" />
               </div>
@@ -96,10 +96,10 @@ export const Experiences = () => {
               </span>
             </div>
           ) : (
-            <div className="grid grid-cols-4 px-20 w-full">
+            <div className="grid w-full grid-cols-1 gap-4 px-4 pb-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-10 xl:grid-cols-4">
               {experiences.map((exp) => (
                 <div
-                  className="flex flex-col text-left bg-white w-90 h-70 p-5 rounded-2xl shadow-md gap-3 hover:bg-[#FFFCF7] transition duration-300 hover:cursor-pointer active:mt-1"
+                  className="flex min-h-70 w-full flex-col gap-3 rounded-2xl bg-white p-5 text-left shadow-md transition duration-300 hover:cursor-pointer hover:bg-[#FFFCF7] active:mt-1"
                   onClick={() => handleExperienceDetailsClick(exp)}
                 >
                   <span

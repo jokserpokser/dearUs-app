@@ -110,7 +110,7 @@ export const ExperienceDetailsModal = ({
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="bg-white p-10 rounded-3xl shadow-lg w-full max-w-180 flex flex-col items-center gap-10"
+            className="flex max-h-[92svh] w-[calc(100%-1.5rem)] max-w-180 flex-col items-center gap-6 overflow-y-auto rounded-3xl bg-white p-4 shadow-lg sm:gap-10 sm:p-8 md:p-10"
             onClick={(event) => event.stopPropagation()}
           >
             <input
@@ -169,9 +169,10 @@ export const ExperienceDetailsModal = ({
                     </div>
                   )}
 
-                  <div className="flex flex-col gap-1 text-center">
+                  <div className="flex flex-row gap-1 text-center items-center">
+                    🤎
                     <span className="text-[#371400] text-xs">
-                      🤎 Completed together on{" "}
+                      Completed together on{" "}
                       {completed_at
                         ? new Intl.DateTimeFormat("en-US", {
                             month: "long",
@@ -179,13 +180,12 @@ export const ExperienceDetailsModal = ({
                             year: "numeric",
                           }).format(new Date(completed_at))
                         : "Completed"}{" "}
-                      🤎
                     </span>
-                    <span className="text-[#877163] text-sm"></span>
+                    🤎
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col border-2 items-center border-[#D7CEC6] border-dashed rounded-3xl w-full bg-[#FFFCF7] p-10 gap-7 my-3">
+                <div className="my-3 flex w-full flex-col items-center gap-7 rounded-3xl border-2 border-dashed border-[#D7CEC6] bg-[#FFFCF7] p-5 sm:p-10">
                   {photoPreview ? (
                     <div
                       className="w-full max-w-150 aspect-video rounded-3xl overflow-hidden border-2 border-[#D7CEC6] bg-white cursor-pointer"
@@ -208,7 +208,7 @@ export const ExperienceDetailsModal = ({
 
                   <div className="flex flex-col gap-1">
                     <span
-                      className="text-[#371400] font-semibold text-2xl"
+                      className="text-lg font-semibold text-[#371400] sm:text-2xl"
                       style={{ fontFamily: "Literata" }}
                     >
                       Memories are waiting
@@ -220,7 +220,7 @@ export const ExperienceDetailsModal = ({
                   </div>
 
                   <button
-                    className="flex flex-row bg-[#A4544B] text-white py-3 px-6 rounded-3xl justify-center items-center gap-3 w-60 hover:cursor-pointer hover:bg-[#8b4840] transition-normal duration-200 font-medium disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="flex w-full flex-row items-center justify-center gap-3 rounded-3xl bg-[#A4544B] px-6 py-3 font-medium text-white transition-normal duration-200 hover:cursor-pointer hover:bg-[#8b4840] disabled:cursor-not-allowed disabled:opacity-70 sm:w-60"
                     onClick={handleCompletion}
                     disabled={isCompleting}
                   >
@@ -257,8 +257,8 @@ export const ExperienceDetailsModal = ({
                         <span className="text-sm font-medium text-[#371400] text-left">
                           Delete this experience?
                         </span>
-                        <span className="text-xs font-light text-[#877266]">
-                          This will remove it from your shared bucket list.
+                        <span className="text-xs font-light text-[#877266] text-left">
+                          This will remove it from your shared experiences.
                         </span>
                       </div>
                     </div>

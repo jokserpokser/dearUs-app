@@ -54,7 +54,7 @@ export const AddExperienceModal = ({
           onClick={() => modalOptions.setIsOpen(false)}
         >
           <div
-            className="bg-white p-10 rounded-3xl shadow-lg w-full max-w-130 flex flex-col items-center gap-10"
+            className="flex max-h-[90svh] w-[calc(100%-2rem)] max-w-130 flex-col items-center gap-8 overflow-y-auto rounded-3xl bg-white p-5 shadow-lg sm:gap-10 sm:p-8 md:p-10"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex flex-col gap-4 items-center">
@@ -99,7 +99,7 @@ export const AddExperienceModal = ({
                 multiline
                 onChange={(event) => setNotes(event.target.value)}
               />
-              <div className="flex flex-row gap-4 justify-between items-center w-full mt-10">
+              <div className="mt-6 flex w-full flex-col-reverse items-stretch justify-between gap-3 sm:mt-10 sm:flex-row sm:items-center">
                 <button
                   type="button"
                   onClick={() => modalOptions.setIsOpen(false)}
