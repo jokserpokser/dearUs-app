@@ -45,9 +45,11 @@ export const Experiences = () => {
       <Navbar />
       <AddExperienceModal
         modalOptions={{ isOpen: isModalOpen, setIsOpen: setIsModalOpen }}
+        onExperienceAdded={fetchExperiences}
       />
       {chosenExperience && (
         <ExperienceDetailsModal
+          key={chosenExperience.id}
           experienceModalProps={{
             experienceDetails: chosenExperience,
             modalOptions: {
@@ -99,6 +101,7 @@ export const Experiences = () => {
             <div className="grid w-full grid-cols-1 gap-4 px-4 pb-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-10 xl:grid-cols-4">
               {experiences.map((exp) => (
                 <div
+                  key={exp.id}
                   className="flex min-h-70 w-full flex-col gap-3 rounded-2xl bg-white p-5 text-left shadow-md transition duration-300 hover:cursor-pointer hover:bg-[#FFFCF7] active:mt-1"
                   onClick={() => handleExperienceDetailsClick(exp)}
                 >

@@ -84,6 +84,7 @@ export const getMyCouple = async (req: AuthRequest, res: Response) => {
 
     const members = await db("users")
       .where({ couple_id: user.couple_id })
+      .orderBy("created_at", "asc")
       .select("id", "name", "email", "created_at");
 
     res.status(200).json({ couple, members });

@@ -8,11 +8,15 @@ interface ModalOptions {
   setIsOpen: (isOpen: boolean) => void;
 }
 
+interface AddExperienceModalProps {
+  modalOptions: ModalOptions;
+  onExperienceAdded: () => void | Promise<void>;
+}
+
 export const AddExperienceModal = ({
   modalOptions,
-}: {
-  modalOptions: ModalOptions;
-}) => {
+  onExperienceAdded,
+}: AddExperienceModalProps) => {
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -21,9 +25,6 @@ export const AddExperienceModal = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission logic here
-    console.log("Title:", title);
-    console.log("Notes:", notes);
     if (title.trim() === "") {
       setTitleErrorMessage("Title is required.");
       return;
@@ -36,13 +37,17 @@ export const AddExperienceModal = ({
 
     try {
       await ExperiencesService.addExperience(experienceData);
+      await onExperienceAdded();
     } catch (error) {
       console.error(error);
       setGeneralError(true);
       return;
     }
 
-    // Close the modal after submission
+    setTitle("");
+    setNotes("");
+    setTitleErrorMessage("");
+    setGeneralError(false);
     modalOptions.setIsOpen(false);
   };
 

@@ -127,6 +127,7 @@ export const Login = () => {
           <span className="text-xs text-[#755f5b]">
             Don&apos;t have an account?{" "}
             <button
+              type="button"
               className="font-semibold text-[#b45f53] hover:cursor-pointer hover:underline"
               onClick={() => navigate("/register")}
             >
