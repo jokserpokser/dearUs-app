@@ -74,7 +74,7 @@ export const Experiences = () => {
           ) : (
             <div className="grid grid-cols-4 px-20 w-full">
               {experiences.map((exp) => (
-                <div className="flex flex-col text-left bg-white w-90 h-70 p-5 rounded-2xl shadow-md gap-3">
+                <div className="flex flex-col text-left bg-white w-90 h-70 p-5 rounded-2xl shadow-md gap-3 hover:bg-[#ffded2] transition-all duration-300 hover:cursor-pointer active:mt-3">
                   <span
                     className={`flex flex-row justify-center items-center text-xs w-fit p-2 gap-2 rounded-2xl ${
                       exp.is_completed ? "bg-[#E8E0BD]" : "bg-[#FFEDEA]"

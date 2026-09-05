@@ -93,7 +93,7 @@ export const AddExperienceModal = ({
                 multiline
                 onChange={(event) => setNotes(event.target.value)}
               />
-              <div className="flex flex-row gap-4 justify-between items-center w-full">
+              <div className="flex flex-row gap-4 justify-between items-center w-full mt-10">
                 <button
                   type="button"
                   onClick={() => modalOptions.setIsOpen(false)}
