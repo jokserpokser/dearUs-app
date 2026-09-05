@@ -43,6 +43,8 @@ export const ExperienceDetailsModal = ({
   const [photo, setPhoto] = useState<File | undefined>(undefined);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [isCompleting, setIsCompleting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const createdDate = new Intl.DateTimeFormat("en-US", {
@@ -82,6 +84,21 @@ export const ExperienceDetailsModal = ({
       console.error("Failed to complete experience.", error);
     } finally {
       setIsCompleting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (isDeleting) return;
+
+    try {
+      setIsDeleting(true);
+      await ExperiencesService.deleteExperience(id);
+      await onExperienceUpdated?.();
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Failed to delete experience.", error);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -229,17 +246,58 @@ export const ExperienceDetailsModal = ({
 
               <Divider />
 
-              <div className="flex flex-row items-center justify-between w-full">
-                <button className="flex flex-row justify-center items-center text-xs rounded-md font-light px-2 py-1 gap-2 text-[#A4544B] transition-colors duration-200 hover:text-[#e7412f] hover:cursor-pointer hover:bg-red-100">
-                  <Trash size={16} />
-                  Delete Experience
-                </button>
-                <button
-                  className="border border-[#D7CEC6] rounded-3xl px-4 py-1 text-sm font-light text-[#371400] transition-colors duration-200 hover:bg-[#FFFCF7] hover:border-[#A16A4B] hover:cursor-pointer"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Close
-                </button>
+              <div className="flex flex-row items-center justify-between w-full min-h-19">
+                {deleteConfirmation ? (
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full min-h-19 rounded-2xl border border-[#F0D4CD] bg-[#FFF6F2] px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex shrink-0 items-center justify-center w-9 h-9 rounded-full bg-[#F8E3DE] text-[#A4544B]">
+                        <Trash size={18} />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium text-[#371400] text-left">
+                          Delete this experience?
+                        </span>
+                        <span className="text-xs font-light text-[#877266]">
+                          This will remove it from your shared bucket list.
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex w-full sm:w-auto justify-end gap-2">
+                      <button
+                        className="border border-[#D7CEC6] rounded-3xl px-4 py-2 text-xs font-light text-[#371400] transition-colors duration-200 hover:bg-white hover:border-[#A16A4B] hover:cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                        onClick={() => setDeleteConfirmation(false)}
+                        disabled={isDeleting}
+                      >
+                        Keep Experience
+                      </button>
+                      <button
+                        className="rounded-3xl bg-[#A4544B] px-4 py-2 text-xs font-medium text-white transition-colors duration-200 hover:bg-[#8b4840] hover:cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                        onClick={handleDelete}
+                        disabled={isDeleting}
+                      >
+                        {isDeleting ? "Deleting..." : "Yes, Delete"}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex flex-row w-full min-h-19 justify-between items-center py-3">
+                      <button
+                        className="flex flex-row justify-center items-center text-xs rounded-md font-light px-2 py-3 gap-2 text-[#A4544B] transition-colors duration-200 hover:text-[#e7412f] hover:cursor-pointer hover:bg-red-100"
+                        onClick={() => setDeleteConfirmation(true)}
+                      >
+                        <Trash size={16} />
+                        Delete Experience
+                      </button>
+                      <button
+                        className="border border-[#D7CEC6] rounded-3xl px-4 py-1 text-sm font-light text-[#371400] transition-colors duration-200 hover:bg-[#FFFCF7] hover:border-[#A16A4B] hover:cursor-pointer"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

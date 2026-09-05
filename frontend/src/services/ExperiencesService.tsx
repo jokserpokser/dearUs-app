@@ -37,4 +37,16 @@ export const ExperiencesService = {
       throw error;
     }
   },
+  deleteExperience: async (experienceId: number) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/experiences/${experienceId}`,
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting experience:", error);
+      throw error;
+    }
+  },
 };
