@@ -90,25 +90,25 @@ export const Register = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center bg-[#fff6d2]">
+    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff6d2] lg:flex-row">
       {/* Left Side */}
-      <div className="flex-1 min-w-0 h-full text-7xl font-bold items-center flex flex-col justify-center bg-white text-center overflow-hidden">
+      <div className="flex min-h-[30svh] w-full min-w-0 flex-1 flex-col items-center justify-center overflow-hidden bg-white px-6 py-10 text-center text-5xl font-bold sm:text-6xl lg:h-full lg:w-1/2 lg:py-0 lg:text-7xl">
         <span className="text-[#371400]">Create your</span>
         <span className="text-[#a4544b]">account</span>
       </div>
       {/* Form Side */}
-      <div className="flex-none w-200 min-w-[50%] flex flex-col justify-center h-full z-10 items-center">
+      <div className="z-10 flex min-h-[70svh] w-full min-w-0 flex-none flex-col items-center justify-center px-6 py-10 lg:h-full lg:w-1/2 lg:px-8 lg:py-0">
         <div className="flex flex-col gap-2">
-          <p className="text-3xl font-bold text-[#371400]">
+          <p className="text-2xl font-bold text-[#371400] sm:text-3xl">
             Dear<span className="text-[#a4544b]">Us</span>
           </p>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 justify-center p-6 w-90"
+          className="flex w-full max-w-md flex-col justify-center gap-4 p-4 sm:p-6"
         >
-          <div className="flex gap-2">
-            <span className="w-[49%]">
+          <div className="flex flex-col gap-4 sm:flex-row sm:gap-2">
+            <span className="w-full sm:w-[49%]">
               <InputField
                 type="text"
                 name="firstName"
@@ -119,7 +119,7 @@ export const Register = () => {
                 onChange={handleInputChange}
               />
             </span>
-            <span className="w-[49%]">
+            <span className="w-full sm:w-[49%]">
               <InputField
                 type="text"
                 name="lastName"
@@ -160,7 +160,7 @@ export const Register = () => {
             onChange={handleInputChange}
           />
 
-          <span className="flex flex-col mt-5 w-[60%] self-center">
+          <span className="mt-5 flex w-full max-w-xs flex-col self-center">
             <SubmitButton text="Create my account" />
           </span>
           {generalError && (
