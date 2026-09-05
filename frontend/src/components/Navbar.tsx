@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Menu, Sparkles, ListTodo, X, BookHeart } from "lucide-react";
+import { Menu, Sparkles, ListTodo, X, BookHeart, LogOut } from "lucide-react";
 import heartIcon from "../assets/icons/drawn-heart-icon.png";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ export const Navbar = () => {
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed left-0 top-0 z-50 flex w-full flex-col border-b border-black bg-[#FFEDEA] p-3 shadow-sm md:h-full md:w-70 md:gap-10 md:p-4"
+      className="fixed left-0 top-0 z-50 flex w-full flex-col bg-[#FFEDEA] p-3 shadow-sm md:h-full md:w-70 md:gap-10 md:p-4"
     >
       <div className="flex items-center justify-between text-start md:block">
         <div className="flex flex-col">
@@ -104,12 +104,13 @@ export const Navbar = () => {
         </NavLink>
         <button
           type="button"
-          className="rounded p-2 text-left text-sm text-[#331200] transition-all duration-300 hover:cursor-pointer hover:bg-[#A4544B] hover:text-white md:mt-auto"
+          className="flex flex-row items-center gap-5 rounded p-2 text-left text-sm text-[#331200] transition-all duration-300 hover:cursor-pointer hover:bg-[#A4544B] hover:text-white md:mt-auto"
           onClick={() => {
             closeMenu();
             logout();
           }}
         >
+          <LogOut size={16} />
           Logout
         </button>
       </div>
