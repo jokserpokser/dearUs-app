@@ -99,8 +99,8 @@ export const ManageCouple = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#fff6d2] pt-16 md:ml-69 md:pt-0">
-        <div className="mb-12 mt-20 max-w-2xl mx-auto">
+      <div className="min-h-screen bg-[#fff6d2] px-4 pb-8 pt-16 md:ml-69 md:px-6 md:pt-0">
+        <div className="mx-auto mb-8 mt-8 max-w-2xl md:mb-12 md:mt-20">
           <h1 className="text-[#693B20] font-semibold text-left">
             Manage Couple
           </h1>
@@ -108,11 +108,11 @@ export const ManageCouple = () => {
             Update your relationship details and connection.
           </p>
         </div>
-        <div className="bg-white p-10 max-w-2xl mx-auto flex flex-col items-center justify-center rounded-4xl gap-5">
+        <div className="mx-auto flex w-full max-w-2xl flex-col items-center justify-center gap-5 rounded-2xl bg-white p-4 sm:p-6 md:rounded-4xl md:p-10">
           <div className="relative flex flex-col text-left bg-[#FFEDEA] border border-[#b25f5631] p-4 rounded-2xl text-[#A4544B] w-full">
             <span className="font-medium mb-2">Couple Invite Code:</span>
             <span
-              className="font-medium text-4xl text-[#B25F56] mb-1 flex flex-row items-center gap-2"
+              className="mb-1 flex flex-row flex-wrap items-center gap-2 text-3xl font-medium text-[#B25F56] sm:text-4xl"
               style={{ fontFamily: "Literata" }}
             >
               {couple.invite_code}
@@ -131,7 +131,7 @@ export const ManageCouple = () => {
           </div>
           {/* Invitation Code Section */}
           <div className="flex flex-col gap-6 w-full">
-            <span className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <ReadOnlyInputField
                 label="Partner 1"
                 value={members[0]?.name || "N/A"}
@@ -141,7 +141,7 @@ export const ManageCouple = () => {
                 value={members[1]?.name || "Waiting for partner..."}
                 shaded={members[1] ? false : true}
               />
-            </span>
+            </div>
 
             <ReadOnlyInputField
               label="Together Since"
@@ -154,10 +154,10 @@ export const ManageCouple = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="mt-8 flex gap-4 justify-center">
+          <div className="mt-4 flex w-full justify-center gap-4 sm:mt-8 sm:w-auto">
             <button
               onClick={() => navigate("/dashboard")}
-              className="px-8 py-3 bg-[#B25F56] text-white font-semibold rounded-lg hover:bg-[#b25f56d8] hover:cursor-pointer transition-colors duration-300"
+              className="w-full rounded-lg bg-[#B25F56] px-8 py-3 font-semibold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-[#b25f56d8] sm:w-auto"
             >
               Go to Dashboard
             </button>
