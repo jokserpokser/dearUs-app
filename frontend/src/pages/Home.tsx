@@ -10,7 +10,7 @@ export const Home = () => {
       <section className="relative flex min-h-[calc(100svh-76px)] flex-1 flex-col overflow-hidden bg-[radial-gradient(circle_at_83%_50%,rgba(255,222,207,0.8),transparent_42%),radial-gradient(circle_at_35%_20%,rgba(255,255,255,0.9),transparent_48%)] px-6 py-14 sm:px-10 sm:py-20 lg:flex-row lg:px-16 lg:py-24">
         <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(rgba(181,111,96,0.2)_0.7px,transparent_0.7px)] bg-size-[18px_18px]" />
         <div className="relative z-10 flex w-full max-w-7xl flex-col items-center justify-center lg:w-1/2 lg:items-start">
-          <div className="flex max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="flex max-w-2xl flex-col items-center text-center lg:items-start lg:text-left lg:ml-30">
             <span
               className="mb-5 text-7xl font-semibold text-[#b45f53] sm:mb-6"
               style={{ fontFamily: "Literata" }}
