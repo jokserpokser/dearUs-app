@@ -15,6 +15,20 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return user ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
+function CoupleRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return user.couple_id ? (
+    <>{children}</>
+  ) : (
+    <Navigate to="/dashboard" replace />
+  );
+}
+
 function PublicRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
 
@@ -67,17 +81,17 @@ function App() {
       <Route
         path="/manage-couple"
         element={
-          <ProtectedRoute>
+          <CoupleRoute>
             <ManageCouple />
-          </ProtectedRoute>
+          </CoupleRoute>
         }
       />
       <Route
         path="/experiences"
         element={
-          <ProtectedRoute>
+          <CoupleRoute>
             <Experiences />
-          </ProtectedRoute>
+          </CoupleRoute>
         }
       />
       <Route path="*" element={<Navigate to="/" replace />} />

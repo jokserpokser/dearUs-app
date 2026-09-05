@@ -71,37 +71,41 @@ export const Navbar = () => {
           <Sparkles size={16} />
           Home
         </NavLink>
-        <NavLink
-          to="/manage-couple"
-          aria-label="Go to Manage Couple"
-          onClick={closeMenu}
-          className={({ isActive }) =>
-            `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-200 hover:cursor-pointer ${
-              isActive
-                ? "bg-[#A4544B] text-white"
-                : "hover:bg-[#A4544B] hover:text-white"
-            }`
-          }
-        >
-          <BookHeart size={16} />
-          Couple Details
-        </NavLink>
+        {user?.couple_id && (
+          <NavLink
+            to="/manage-couple"
+            aria-label="Go to Manage Couple"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-200 hover:cursor-pointer ${
+                isActive
+                  ? "bg-[#A4544B] text-white"
+                  : "hover:bg-[#A4544B] hover:text-white"
+              }`
+            }
+          >
+            <BookHeart size={16} />
+            Couple Details
+          </NavLink>
+        )}
 
-        <NavLink
-          to="/experiences"
-          aria-label="Go to experiences"
-          onClick={closeMenu}
-          className={({ isActive }) =>
-            `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-200 hover:cursor-pointer ${
-              isActive
-                ? "bg-[#A4544B] text-white"
-                : "hover:bg-[#A4544B] hover:text-white"
-            }`
-          }
-        >
-          <ListTodo size={16} />
-          Experiences
-        </NavLink>
+        {user?.couple_id && (
+          <NavLink
+            to="/experiences"
+            aria-label="Go to experiences"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-200 hover:cursor-pointer ${
+                isActive
+                  ? "bg-[#A4544B] text-white"
+                  : "hover:bg-[#A4544B] hover:text-white"
+              }`
+            }
+          >
+            <ListTodo size={16} />
+            Experiences
+          </NavLink>
+        )}
         <button
           type="button"
           className="flex flex-row items-center gap-5 rounded p-2 text-left text-sm text-[#331200] transition-all duration-300 hover:cursor-pointer hover:bg-[#A4544B] hover:text-white md:mt-auto"
