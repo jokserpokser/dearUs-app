@@ -47,6 +47,20 @@ export const Navbar = () => {
           <Sparkles size={16} />
           Home
         </NavLink>
+        <NavLink
+          to="/manage-couple"
+          aria-label="Go to Manage Couple"
+          className={({ isActive }) =>
+            `flex flex-row text-[#331200] w-full font-medium text-sm hover:cursor-pointer gap-5 items-center justify-start transition-all duration-200 p-2 rounded ${
+              isActive
+                ? "bg-[#A4544B] text-white"
+                : "hover:bg-[#A4544B] hover:text-white"
+            }`
+          }
+        >
+          <ListTodo size={16} />
+          Couple Details
+        </NavLink>
 
         <NavLink
           to="/experiences"

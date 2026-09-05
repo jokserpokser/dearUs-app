@@ -56,27 +56,33 @@ export const ManageCouple = () => {
 
   if (loading) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-[#fff6d2]">
-        <div className="text-center">
-          <p className="text-lg text-[#545454]">Loading couple details...</p>
+      <>
+        <Navbar />
+        <div className="min-h-screen ml-69 flex items-center justify-center bg-[#fff6d2]">
+          <div className="text-center">
+            <p className="text-lg text-[#545454]">Loading couple details...</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   if (error || !coupleData) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-[#fff6d2]">
-        <div className="text-center">
-          <p className="text-lg text-red-500 mb-4">{error}</p>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="px-4 py-2 bg-[#a4544b] text-white rounded hover:bg-[#8b3d36]"
-          >
-            Go to Dashboard
-          </button>
+      <>
+        <Navbar />
+        <div className="min-h-screen ml-69 flex items-center justify-center bg-[#fff6d2]">
+          <div className="text-center">
+            <p className="text-lg text-red-500 mb-4">{error}</p>
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="px-4 py-2 bg-[#a4544b] text-white rounded hover:bg-[#8b3d36]"
+            >
+              Go to Dashboard
+            </button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
