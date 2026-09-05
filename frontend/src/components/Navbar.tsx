@@ -1,43 +1,62 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Sparkles, ListTodo } from "lucide-react";
+import { Menu, Sparkles, ListTodo, X, BookHeart } from "lucide-react";
 import heartIcon from "../assets/icons/drawn-heart-icon.png";
+import { useState } from "react";
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
   const homeTarget = user ? "/dashboard" : "/";
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed top-0 left-0 z-50 border-b bg-[#FFEDEA] border-black h-full flex flex-col p-4 w-70 gap-10 shadow-sm"
+      className="fixed left-0 top-0 z-50 flex w-full flex-col border-b border-black bg-[#FFEDEA] p-3 shadow-sm md:h-full md:w-70 md:gap-10 md:p-4"
     >
-      <div className="flex flex-col text-start">
-        <span
-          className="text-[#a4544b] font-semibold text-2xl"
-          style={{ fontFamily: "Literata" }}
+      <div className="flex items-center justify-between text-start md:block">
+        <div className="flex flex-col">
+          <span
+            className="text-2xl font-semibold text-[#a4544b]"
+            style={{ fontFamily: "Literata" }}
+          >
+            DearUs
+          </span>
+          <span className="text-xs font-medium text-[#331200]">
+            Our safe harbor
+          </span>
+        </div>
+        <button
+          type="button"
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
+          aria-expanded={isMenuOpen}
+          className="rounded p-2 text-[#331200] md:hidden"
+          onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
         >
-          DearUs
-        </span>
-        <span className="text-[#331200] font-medium text-xs">
-          Our safe harbor
-        </span>
-        <span className="flex text-[#331200] font-medium text-xs mt-10 justify-start items-center gap-1">
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+        <span className="mt-3 hidden items-center gap-1 text-xs font-medium text-[#331200] md:mt-10 md:flex md:justify-start">
           <img
             src={heartIcon}
             alt="heart"
-            className="w-4 h-4 inline-block mr-2"
+            className="mr-2 inline-block h-4 w-4"
           />
           {user?.name}
         </span>
       </div>
 
-      <div className="flex flex-col gap-2 items-start h-full">
+      <div
+        className={`${isMenuOpen ? "flex" : "hidden"} absolute left-0 top-full w-full flex-col gap-2 border-b border-black bg-[#FFEDEA] p-3 md:static md:flex md:h-full md:w-auto md:border-0 md:bg-transparent md:p-0`}
+      >
         <NavLink
           to={homeTarget}
           aria-label="Go to home"
+          onClick={closeMenu}
           className={({ isActive }) =>
-            `flex flex-row text-[#331200] w-full font-medium text-sm hover:cursor-pointer gap-5 items-center justify-start transition-all duration-300 p-2 rounded ${
+            `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-300 hover:cursor-pointer ${
               isActive
                 ? "bg-[#A4544B] text-white"
                 : "hover:bg-[#A4544B] hover:text-white"
@@ -50,23 +69,25 @@ export const Navbar = () => {
         <NavLink
           to="/manage-couple"
           aria-label="Go to Manage Couple"
+          onClick={closeMenu}
           className={({ isActive }) =>
-            `flex flex-row text-[#331200] w-full font-medium text-sm hover:cursor-pointer gap-5 items-center justify-start transition-all duration-200 p-2 rounded ${
+            `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-200 hover:cursor-pointer ${
               isActive
                 ? "bg-[#A4544B] text-white"
                 : "hover:bg-[#A4544B] hover:text-white"
             }`
           }
         >
-          <ListTodo size={16} />
+          <BookHeart size={16} />
           Couple Details
         </NavLink>
 
         <NavLink
           to="/experiences"
           aria-label="Go to experiences"
+          onClick={closeMenu}
           className={({ isActive }) =>
-            `flex flex-row text-[#331200] w-full font-medium text-sm hover:cursor-pointer gap-5 items-center justify-start transition-all duration-200 p-2 rounded ${
+            `flex w-full flex-row items-center justify-start gap-5 rounded p-2 text-sm font-medium text-[#331200] transition-all duration-200 hover:cursor-pointer ${
               isActive
                 ? "bg-[#A4544B] text-white"
                 : "hover:bg-[#A4544B] hover:text-white"
@@ -76,13 +97,17 @@ export const Navbar = () => {
           <ListTodo size={16} />
           Experiences
         </NavLink>
+        <button
+          type="button"
+          className="rounded p-2 text-left text-sm text-[#331200] transition-all duration-300 hover:cursor-pointer hover:bg-[#A4544B] hover:text-white md:mt-auto"
+          onClick={() => {
+            closeMenu();
+            logout();
+          }}
+        >
+          Logout
+        </button>
       </div>
-      <span
-        className="text-sm text-[#331200] hover:cursor-pointer hover:bg-[#A4544B] hover:text-white transition-all duration-300 p-2 rounded"
-        onClick={logout}
-      >
-        Logout
-      </span>
     </nav>
   );
 };

@@ -58,7 +58,7 @@ export const Experiences = () => {
           }}
         />
       )}
-      <div className="bg-[#fff6f4] h-screen ml-69">
+      <div className="min-h-screen bg-[#fff6f4] pt-16 md:ml-69 md:pt-0">
         <div
           className="flex flex-row bg-[#FFEDEA] text-[#a4544b] font-semibold text-xl p-4 text-left justify-between items-center px-10"
           style={{ fontFamily: "Literata" }}
