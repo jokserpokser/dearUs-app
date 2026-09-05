@@ -29,9 +29,9 @@ export const InputField = ({
     <div className="flex flex-col gap-1">
       {label && (
         <label
-          className={`text-sm font-semibold text-[#462613] ${labelCenter ? "self-center" : "self-start"}`}
+          className={`text-sm font-semibold text-[#7c4439] ${labelCenter ? "self-center" : "self-start"}`}
         >
-          {label} {required && <span className="text-[#B37068]">*</span>}
+          {label} {required && <span className="text-[#b45f53]">*</span>}
         </label>
       )}
       {multiline ? (
@@ -42,7 +42,7 @@ export const InputField = ({
           onChange={
             onChange as unknown as React.ChangeEventHandler<HTMLTextAreaElement>
           }
-          className={`text-sm p-2 border-2 text-[#A16A4B] bg-[#FDFBF7] border-[#F2E4CE] rounded-md ${textCenter ? "text-center" : "text-left"} focus:outline-none focus:ring-2 focus:ring-[#A16A4B]`}
+          className={`rounded-md border-2 border-[#f0b8a5] bg-[#fffdfc] p-2 text-sm text-[#755f5b] focus:outline-none focus:ring-2 focus:ring-[#b45f53] ${textCenter ? "text-center" : "text-left"}`}
         />
       ) : (
         <input
@@ -51,7 +51,7 @@ export const InputField = ({
           value={value}
           placeholder={placeholder}
           onChange={onChange}
-          className={`text-sm p-2 border-2 text-[#A16A4B] bg-[#FDFBF7] border-[#F2E4CE] rounded-md ${textCenter ? "text-center" : "text-left"} focus:outline-none focus:ring-2 focus:ring-[#A16A4B]`}
+          className={`rounded-md border-2 border-[#f0b8a5] bg-[#fffdfc] p-2 text-sm text-[#755f5b] focus:outline-none focus:ring-2 focus:ring-[#b45f53] ${textCenter ? "text-center" : "text-left"}`}
         />
       )}
       {errorMessage && (
@@ -65,7 +65,7 @@ export const SubmitButton = ({ text }: { text: string }) => {
   return (
     <button
       type="submit"
-      className="bg-white text-[#512b16] font-semibold py-2 px-5 w-full rounded-lg hover:bg-[#e0e0d1] transition-colors duration-300 hover:cursor-pointer border-2"
+      className="w-full rounded-lg border-2 border-[#b45f53] bg-[#b45f53] px-5 py-2 font-semibold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-[#9f5046]"
     >
       {text}
     </button>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 export const Register = () => {
   const { login } = useAuth();
@@ -90,23 +91,31 @@ export const Register = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff6d2] lg:flex-row">
+    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff9f7] lg:flex-row">
       {/* Left Side */}
-      <div className="flex min-h-[30svh] w-full min-w-0 flex-1 flex-col items-center justify-center overflow-hidden bg-white px-6 py-10 text-center text-5xl font-bold sm:text-6xl lg:h-full lg:w-1/2 lg:py-0 lg:text-7xl">
-        <span className="text-[#371400]">Create your</span>
-        <span className="text-[#a4544b]">account</span>
+      <div className="flex min-h-[30svh] w-full min-w-0 flex-1 flex-col items-center justify-center overflow-hidden bg-[#fff8f5] px-6 py-10 text-center text-5xl font-bold sm:text-6xl lg:h-full lg:w-1/2 lg:py-0 lg:text-7xl">
+        <span className="text-[#211817]">Create your</span>
+        <span className="text-[#ad5c50]">account</span>
       </div>
       {/* Form Side */}
       <div className="z-10 flex min-h-[70svh] w-full min-w-0 flex-none flex-col items-center justify-center px-6 py-10 lg:h-full lg:w-1/2 lg:px-8 lg:py-0">
         <div className="flex flex-col gap-2">
-          <p className="text-2xl font-bold text-[#371400] sm:text-3xl">
-            Dear<span className="text-[#a4544b]">Us</span>
+          <p className="text-2xl font-bold text-[#211817] sm:text-3xl">
+            Dear<span className="text-[#b45f53]">Us</span>
           </p>
         </div>
         <form
           onSubmit={handleSubmit}
           className="flex w-full max-w-md flex-col justify-center gap-4 p-4 sm:p-6"
         >
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="flex w-fit items-center gap-2 text-sm font-medium text-[#755f5b] transition-colors hover:text-[#b45f53]"
+          >
+            <ArrowLeft size={16} />
+            Back to home
+          </button>
           <div className="flex flex-col gap-4 sm:flex-row sm:gap-2">
             <span className="w-full sm:w-[49%]">
               <InputField
@@ -164,14 +173,14 @@ export const Register = () => {
             <SubmitButton text="Create my account" />
           </span>
           {generalError && (
-            <span className="text-red-500 text-xs text-start">
+            <span className="text-xs text-start text-[#b45f53]">
               {generalError}
             </span>
           )}
-          <span className="text-xs text-[#545454]">
+          <span className="text-xs text-[#755f5b]">
             Already have an account?{" "}
             <button
-              className="text-[#a4544b] font-semibold hover:underline hover:cursor-pointer"
+              className="font-semibold text-[#b45f53] hover:cursor-pointer hover:underline"
               onClick={() => navigate("/login")}
             >
               Login

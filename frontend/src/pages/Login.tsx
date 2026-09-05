@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AuthService } from "../services/AuthService";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 export const Login = () => {
   const { login } = useAuth();
@@ -61,33 +62,41 @@ export const Login = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff6d2] lg:flex-row">
+    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff9f7] lg:flex-row">
       <div className="flex min-h-[38svh] w-full min-w-0 flex-col items-center justify-center overflow-hidden px-6 py-10 text-center lg:h-full lg:w-1/2 lg:py-0">
         <div className="flex flex-col items-center gap-2 lg:items-start">
-          <span className="text-5xl font-bold text-[#371400] sm:text-6xl lg:text-7xl">
+          <span className="text-5xl font-bold text-[#211817] sm:text-6xl lg:text-7xl">
             Sign in to
           </span>
-          <span className="text-5xl font-bold text-[#a4544b] sm:text-6xl lg:text-7xl">
+          <span className="text-5xl font-bold text-[#ad5c50] sm:text-6xl lg:text-7xl">
             DearUs
           </span>
-          <span className="mt-4 text-sm text-[#545454]">
+          <span className="mt-4 text-sm text-[#755f5b]">
             Your memories and moments are waiting for you.
           </span>
         </div>
       </div>
       {/* Divider */}
-      <div className="h-0.5 w-1/2 bg-[#b6b1ae] lg:h-[50%] lg:w-0.5"></div>
+      <div className="h-0.5 w-1/2 bg-[#f0b8a5] lg:h-[50%] lg:w-0.5"></div>
 
       <div className="z-10 flex min-h-[62svh] w-full min-w-0 flex-none flex-col items-center justify-center px-6 py-10 lg:h-full lg:w-1/2 lg:px-8 lg:py-0">
         <div className="flex flex-col gap-2">
-          <p className="text-2xl font-bold text-[#371400] sm:text-3xl">
-            Dear<span className="text-[#a4544b]">Us</span>
+          <p className="text-2xl font-bold text-[#211817] sm:text-3xl">
+            Dear<span className="text-[#b45f53]">Us</span>
           </p>
         </div>
         <form
           onSubmit={handleSubmit}
           className="flex w-full max-w-md flex-col justify-center gap-4 p-4 sm:p-6"
         >
+          <button
+            type="button"
+            onClick={() => navigate("/")}
+            className="flex w-fit items-center gap-2 text-sm font-medium text-[#755f5b] transition-colors hover:text-[#b45f53]"
+          >
+            <ArrowLeft size={16} />
+            Back to home
+          </button>
           <InputField
             type="email"
             name="email"
@@ -111,14 +120,14 @@ export const Login = () => {
             <SubmitButton text="Login" />
           </span>
           {generalError && (
-            <span className="text-red-500 text-xs text-start">
+            <span className="text-xs text-start text-[#b45f53]">
               {generalError}
             </span>
           )}
-          <span className="text-xs text-[#545454]">
+          <span className="text-xs text-[#755f5b]">
             Don&apos;t have an account?{" "}
             <button
-              className="text-[#a4544b] font-semibold hover:underline hover:cursor-pointer"
+              className="font-semibold text-[#b45f53] hover:cursor-pointer hover:underline"
               onClick={() => navigate("/register")}
             >
               Register
