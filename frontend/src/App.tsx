@@ -6,6 +6,7 @@ import { Dashboard } from "./pages/Dashboard.tsx";
 import { Home } from "./pages/Home.tsx";
 import { useAuth } from "./context/AuthContext";
 import { CreateCouple } from "./pages/CreateCouple.tsx";
+import { JoinCouple } from "./pages/JoinCouple.tsx";
 import { ManageCouple } from "./pages/ManageCouple.tsx";
 import { Experiences } from "./pages/Experiences.tsx";
 
@@ -26,6 +27,20 @@ function CoupleRoute({ children }: { children: React.ReactNode }) {
     <>{children}</>
   ) : (
     <Navigate to="/dashboard" replace />
+  );
+}
+
+function NoCoupleRoute({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return user.couple_id ? (
+    <Navigate to="/dashboard" replace />
+  ) : (
+    <>{children}</>
   );
 }
 
@@ -73,9 +88,17 @@ function App() {
       <Route
         path="/create-couple"
         element={
-          <ProtectedRoute>
+          <NoCoupleRoute>
             <CreateCouple />
-          </ProtectedRoute>
+          </NoCoupleRoute>
+        }
+      />
+      <Route
+        path="/join-couple"
+        element={
+          <NoCoupleRoute>
+            <JoinCouple />
+          </NoCoupleRoute>
         }
       />
       <Route

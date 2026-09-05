@@ -32,6 +32,11 @@ export const CreateCouple = () => {
   };
 
   const handleCreateCouple = async () => {
+    if (user?.couple_id) {
+      navigate("/dashboard", { replace: true });
+      return;
+    }
+
     setIsLoading(true);
     setGeneralError("");
 
@@ -70,38 +75,48 @@ export const CreateCouple = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center bg-[#ffc9a7]">
-      <div className="flex-1 min-w-0 h-full flex flex-col justify-center items-center text-center overflow-hidden">
-        <div className="flex flex-col gap-2 items-start">
-          <span className="text-7xl font-bold text-[#371400]">Create your</span>
-          <span className="text-7xl font-bold text-[#fbf7e4]">couple</span>
-          <span className="mt-4 text-[#545454] text-sm">
+    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff9f7] lg:flex-row">
+      <div className="flex min-h-[35svh] w-full min-w-0 flex-1 flex-col items-center justify-center overflow-hidden bg-[#fff8f5] px-6 py-10 text-center lg:h-full lg:w-1/2 lg:items-start lg:px-16 lg:py-0 lg:text-left">
+        <div className="flex flex-col items-center gap-2 lg:items-start">
+          <span
+            className="text-5xl font-bold text-[#211817] sm:text-6xl lg:text-7xl"
+            style={{ fontFamily: "Literata" }}
+          >
+            Create your
+          </span>
+          <span
+            className="text-5xl font-normal italic text-[#ad5c50] sm:text-6xl lg:text-7xl"
+            style={{ fontFamily: "Literata" }}
+          >
+            couple
+          </span>
+          <span className="mt-4 max-w-md text-sm leading-relaxed text-[#755f5b]">
             One account, two people, endless adventures. Let's get you set
             up.{" "}
           </span>
         </div>
       </div>
       {/* Divider */}
-      <div className="w-0.5 h-[50%] bg-[#433d38]"></div>
+      <div className="h-0.5 w-1/2 bg-[#f0b8a5] lg:h-[50%] lg:w-0.5"></div>
 
-      <div className="flex-none w-[50%] min-w-[320px] flex flex-col justify-center h-full z-10 items-center">
+      <div className="z-10 flex min-h-[65svh] w-full min-w-0 flex-none flex-col items-center justify-center px-6 py-10 lg:h-full lg:w-1/2 lg:px-8 lg:py-0">
         <div className="flex flex-col gap-2">
-          <p className="text-3xl font-bold text-[#371400]">
-            Dear<span className="text-[#a4544b]">Us</span>
+          <p className="text-2xl font-bold text-[#211817] sm:text-3xl">
+            Dear<span className="text-[#b45f53]">Us</span>
           </p>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 justify-center p-6 w-90"
+          className="flex w-full max-w-md flex-col justify-center gap-4 p-4 sm:p-6"
         >
           <>
-            <p className="text-sm text-[#545454] mb-4">
+            <p className="mb-4 text-sm leading-relaxed text-[#755f5b]">
               Create a couple and invite your partner to start sharing memories
               and experiences together.
             </p>
 
-            <div className="flex flex-col gap-2 w-full">
-              <label className="block text-xs font-semibold text-[#545454]">
+            <div className="flex w-full flex-col gap-2">
+              <label className="block text-sm font-semibold text-[#7c4439]">
                 TOGETHER SINCE
               </label>
               <DatePicker
@@ -113,7 +128,7 @@ export const CreateCouple = () => {
                 showMonthDropdown
                 dropdownMode="select"
                 yearDropdownItemNumber={100}
-                className="w-full text-[#202020] text-sm p-1 border-2 rounded-sm bg-white border-[#968c87] focus:outline-none focus:border-[#4b2723] transition-colors duration-300 text-center"
+                className="w-full rounded-md border-2 border-[#f0b8a5] bg-[#fffdfc] p-2 text-center text-sm text-[#755f5b] transition-colors duration-300 focus:border-[#b45f53] focus:outline-none"
               />
             </div>
 
@@ -127,7 +142,7 @@ export const CreateCouple = () => {
               placeholder="Honey, Love, Sweetheart"
               onChange={handleInputChange}
             />
-            <span className="flex flex-col mt-5 w-[60%] self-center">
+            <span className="mt-5 flex w-full max-w-xs flex-col self-center">
               <SubmitButton
                 text={isLoading ? "Creating..." : "Create Couple"}
               />
@@ -135,16 +150,16 @@ export const CreateCouple = () => {
           </>
 
           {generalError && (
-            <span className="text-red-500 text-xs text-start">
+            <span className="text-xs text-start text-[#b45f53]">
               {generalError}
             </span>
           )}
 
-          <span className="text-xs text-[#545454]">
+          <span className="text-xs text-[#755f5b]">
             Already have an invite code?{" "}
             <button
               type="button"
-              className="text-[#a4544b] font-semibold hover:underline hover:cursor-pointer"
+              className="font-semibold text-[#b45f53] hover:cursor-pointer hover:underline"
               onClick={() => navigate("/join-couple")}
             >
               Join a couple

@@ -55,7 +55,11 @@ export const InputField = ({
         />
       )}
       {errorMessage && (
-        <span className="text-red-500 text-xs text-start">{errorMessage}</span>
+        <span
+          className={`text-xs text-red-500 ${textCenter ? "text-center" : "text-start"}`}
+        >
+          {errorMessage}
+        </span>
       )}
     </div>
   );
