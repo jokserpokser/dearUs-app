@@ -9,6 +9,9 @@ interface InputFieldProps {
   textCenter?: boolean;
   multiline?: boolean;
   required?: boolean;
+  autoComplete?: string;
+  minLength?: number;
+  maxLength?: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -23,6 +26,9 @@ export const InputField = ({
   textCenter,
   multiline = false,
   required = false,
+  autoComplete,
+  minLength,
+  maxLength,
   onChange,
 }: InputFieldProps) => {
   return (
@@ -50,6 +56,10 @@ export const InputField = ({
           name={name}
           value={value}
           placeholder={placeholder}
+          autoComplete={autoComplete}
+          minLength={minLength}
+          maxLength={maxLength}
+          required={required}
           onChange={onChange}
           className={`rounded-md border-2 border-[#f0b8a5] bg-[#fffdfc] p-2 text-sm text-[#755f5b] focus:outline-none focus:ring-2 focus:ring-[#b45f53] ${textCenter ? "text-center" : "text-left"}`}
         />

@@ -4,6 +4,11 @@ import { AuthService } from "../services/AuthService";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import {
+  isValidEmail,
+  MAX_EMAIL_LENGTH,
+  normalizeEmail,
+} from "../services/authValidation";
 
 export const Login = () => {
   const { login } = useAuth();
@@ -27,23 +32,28 @@ export const Login = () => {
       ...prevData,
       [name]: value,
     }));
+    setFormErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    setGeneralError("");
   };
 
   const handleLogin = async () => {
-    if (!formData.email || !formData.password) {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        email: !formData.email ? "Email is required" : "",
-        password: !formData.password ? "Password is required" : "",
-      }));
+    const email = normalizeEmail(formData.email);
+    const errors = {
+      email: !email
+        ? "Email is required"
+        : !isValidEmail(email)
+          ? "Enter a valid email address"
+          : "",
+      password: formData.password ? "" : "Password is required",
+    };
+
+    if (Object.values(errors).some(Boolean)) {
+      setFormErrors(errors);
       return;
     }
 
     try {
-      const response = await AuthService.login(
-        formData.email,
-        formData.password,
-      );
+      const response = await AuthService.login(email, formData.password);
       const { user, token } = response;
 
       login(user, token);
@@ -104,6 +114,9 @@ export const Login = () => {
             value={formData.email}
             placeholder="example@email.com"
             errorMessage={formErrors.email}
+            autoComplete="email"
+            maxLength={MAX_EMAIL_LENGTH}
+            required
             onChange={handleInputChange}
           />
           <InputField
@@ -113,6 +126,8 @@ export const Login = () => {
             value={formData.password}
             placeholder="Password"
             errorMessage={formErrors.password}
+            autoComplete="current-password"
+            required
             onChange={handleInputChange}
           />
 

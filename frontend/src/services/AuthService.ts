@@ -1,11 +1,12 @@
 import axiosInstance from "../api/axiosInstance";
+import { normalizeEmail, normalizeName } from "./authValidation";
 
 export const AuthService = {
   register: async (name: string, email: string, password: string) => {
     try {
       const response = await axiosInstance.post("/auth/register", {
-        name,
-        email,
+        name: normalizeName(name),
+        email: normalizeEmail(email),
         password,
       });
 
@@ -18,7 +19,7 @@ export const AuthService = {
   login: async (email: string, password: string) => {
     try {
       const response = await axiosInstance.post("/auth/login", {
-        email,
+        email: normalizeEmail(email),
         password,
       });
 

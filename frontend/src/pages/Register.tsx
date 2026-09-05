@@ -4,6 +4,15 @@ import { AuthService } from "../services/AuthService";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import {
+  isValidEmail,
+  MAX_EMAIL_LENGTH,
+  MAX_NAME_LENGTH,
+  MAX_PASSWORD_LENGTH,
+  MIN_PASSWORD_LENGTH,
+  normalizeEmail,
+  normalizeName,
+} from "../services/authValidation";
 
 export const Register = () => {
   const { login } = useAuth();
@@ -35,36 +44,44 @@ export const Register = () => {
       ...prevData,
       [name]: value,
     }));
+    setFormErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    setGeneralError("");
   };
 
   const handleRegister = async () => {
-    if (formData.password !== formData.confirmPassword) {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        confirmPassword: "Passwords do not match",
-      }));
-      return;
-    }
+    const firstName = normalizeName(formData.firstName);
+    const lastName = normalizeName(formData.lastName);
+    const email = normalizeEmail(formData.email);
+    const errors = {
+      firstName: firstName ? "" : "First name is required",
+      lastName: lastName ? "" : "Last name is required",
+      email: !email
+        ? "Email is required"
+        : !isValidEmail(email)
+          ? "Enter a valid email address"
+          : "",
+      password: !formData.password
+        ? "Password is required"
+        : formData.password.length < MIN_PASSWORD_LENGTH
+          ? `Password must be at least ${MIN_PASSWORD_LENGTH} characters`
+          : formData.password.length > MAX_PASSWORD_LENGTH
+            ? `Password must be at most ${MAX_PASSWORD_LENGTH} characters`
+            : "",
+      confirmPassword:
+        formData.password !== formData.confirmPassword
+          ? "Passwords do not match"
+          : "",
+      coupleInviteCode: "",
+    };
 
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.password
-    ) {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        firstName: !formData.firstName ? "First name is required" : "",
-        lastName: !formData.lastName ? "Last name is required" : "",
-        email: !formData.email ? "Email is required" : "",
-        password: !formData.password ? "Password is required" : "",
-      }));
+    if (Object.values(errors).some(Boolean)) {
+      setFormErrors(errors);
       return;
     }
 
     const userData = {
-      name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
+      name: `${firstName} ${lastName}`,
+      email,
       password: formData.password,
     };
 
@@ -125,6 +142,9 @@ export const Register = () => {
                 value={formData.firstName}
                 placeholder="First Name"
                 errorMessage={formErrors.firstName}
+                autoComplete="given-name"
+                maxLength={MAX_NAME_LENGTH}
+                required
                 onChange={handleInputChange}
               />
             </span>
@@ -136,6 +156,9 @@ export const Register = () => {
                 value={formData.lastName}
                 placeholder="Last Name"
                 errorMessage={formErrors.lastName}
+                autoComplete="family-name"
+                maxLength={MAX_NAME_LENGTH}
+                required
                 onChange={handleInputChange}
               />
             </span>
@@ -148,6 +171,9 @@ export const Register = () => {
             value={formData.email}
             placeholder="example@email.com"
             errorMessage={formErrors.email}
+            autoComplete="email"
+            maxLength={MAX_EMAIL_LENGTH}
+            required
             onChange={handleInputChange}
           />
           <InputField
@@ -157,6 +183,10 @@ export const Register = () => {
             value={formData.password}
             placeholder="Password"
             errorMessage={formErrors.password}
+            autoComplete="new-password"
+            minLength={MIN_PASSWORD_LENGTH}
+            maxLength={MAX_PASSWORD_LENGTH}
+            required
             onChange={handleInputChange}
           />
           <InputField
@@ -166,6 +196,10 @@ export const Register = () => {
             value={formData.confirmPassword}
             placeholder="Confirm Password"
             errorMessage={formErrors.confirmPassword}
+            autoComplete="new-password"
+            minLength={MIN_PASSWORD_LENGTH}
+            maxLength={MAX_PASSWORD_LENGTH}
+            required
             onChange={handleInputChange}
           />
 
@@ -180,6 +214,7 @@ export const Register = () => {
           <span className="text-xs text-[#755f5b]">
             Already have an account?{" "}
             <button
+              type="button"
               className="font-semibold text-[#b45f53] hover:cursor-pointer hover:underline"
               onClick={() => navigate("/login")}
             >
