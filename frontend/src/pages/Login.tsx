@@ -61,28 +61,32 @@ export const Login = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center bg-[#fff6d2]">
-      <div className="flex-1 min-w-0 h-full flex flex-col justify-center items-center text-center overflow-hidden">
-        <div className="flex flex-col gap-2 items-start">
-          <span className="text-7xl font-bold text-[#371400]">Sign in to</span>
-          <span className="text-7xl font-bold text-[#a4544b]">DearUs</span>
-          <span className="mt-4 text-[#545454] text-sm">
+    <div className="fixed inset-0 flex flex-col items-center overflow-y-auto bg-[#fff6d2] lg:flex-row">
+      <div className="flex min-h-[38svh] w-full min-w-0 flex-col items-center justify-center overflow-hidden px-6 py-10 text-center lg:h-full lg:w-1/2 lg:py-0">
+        <div className="flex flex-col items-center gap-2 lg:items-start">
+          <span className="text-5xl font-bold text-[#371400] sm:text-6xl lg:text-7xl">
+            Sign in to
+          </span>
+          <span className="text-5xl font-bold text-[#a4544b] sm:text-6xl lg:text-7xl">
+            DearUs
+          </span>
+          <span className="mt-4 text-sm text-[#545454]">
             Your memories and moments are waiting for you.
           </span>
         </div>
       </div>
       {/* Divider */}
-      <div className="w-0.5 h-[50%] bg-[#b6b1ae]"></div>
+      <div className="h-0.5 w-1/2 bg-[#b6b1ae] lg:h-[50%] lg:w-0.5"></div>
 
-      <div className="flex-none w-[50%] min-w-[320px] flex flex-col justify-center h-full z-10 items-center">
+      <div className="z-10 flex min-h-[62svh] w-full min-w-0 flex-none flex-col items-center justify-center px-6 py-10 lg:h-full lg:w-1/2 lg:px-8 lg:py-0">
         <div className="flex flex-col gap-2">
-          <p className="text-3xl font-bold text-[#371400]">
+          <p className="text-2xl font-bold text-[#371400] sm:text-3xl">
             Dear<span className="text-[#a4544b]">Us</span>
           </p>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-4 justify-center p-6 w-90"
+          className="flex w-full max-w-md flex-col justify-center gap-4 p-4 sm:p-6"
         >
           <InputField
             type="email"
@@ -103,7 +107,7 @@ export const Login = () => {
             onChange={handleInputChange}
           />
 
-          <span className="flex flex-col mt-5 w-[60%] self-center">
+          <span className="mt-5 flex w-full max-w-xs flex-col self-center">
             <SubmitButton text="Login" />
           </span>
           {generalError && (
