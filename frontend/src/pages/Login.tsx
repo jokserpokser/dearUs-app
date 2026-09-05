@@ -92,7 +92,7 @@ export const Login = () => {
           <button
             type="button"
             onClick={() => navigate("/")}
-            className="flex w-fit items-center gap-2 text-sm font-medium text-[#755f5b] transition-colors hover:text-[#b45f53]"
+            className="flex w-fit items-center gap-2 text-sm font-medium text-[#755f5b] transition-colors hover:text-[#b45f53] hover:cursor-pointer"
           >
             <ArrowLeft size={16} />
             Back to home
