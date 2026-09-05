@@ -49,8 +49,14 @@ export const AddExperienceModal = ({
   return (
     <>
       {modalOptions.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white p-10 rounded-3xl shadow-lg w-full max-w-130 flex flex-col items-center gap-10">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={() => modalOptions.setIsOpen(false)}
+        >
+          <div
+            className="bg-white p-10 rounded-3xl shadow-lg w-full max-w-130 flex flex-col items-center gap-10"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="flex flex-col gap-4 items-center">
               <div className="flex bg-[#FFEDEA] rounded-full w-15 h-15 justify-center items-center">
                 <Heart size={30} color="#A4544B" />

@@ -1,32 +1,44 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { Plus, Heart, CircleCheck, LoaderCircle } from "lucide-react";
 import { ExperiencesService } from "../services/ExperiencesService";
 import { AddExperienceModal } from "../components/AddExperienceModal";
+import { ExperienceDetailsModal } from "../components/ExperienceDetailsModal";
 
 type Experience = {
+  id: number;
   title: string;
   notes?: string;
   is_completed: boolean;
+  created_at: string;
+  photo_url?: string;
+  completed_at: string;
 };
 
 export const Experiences = () => {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEDModalOpen, setIsEDModalOpen] = useState(false);
+  const [chosenExperience, setChosenExperience] = useState<Experience>();
+
+  const fetchExperiences = useCallback(async () => {
+    try {
+      const experiencesData = await ExperiencesService.getExperiences();
+      setExperiences(experiencesData.experiences);
+    } catch (error) {
+      console.error("Error fetching experiences:", error);
+    }
+  }, []);
+
+  const handleExperienceDetailsClick = (exp: Experience) => {
+    setChosenExperience(exp);
+    setIsEDModalOpen(true);
+  };
 
   useEffect(() => {
-    const fetchExperiences = async () => {
-      try {
-        const experiencesData = await ExperiencesService.getExperiences();
-        setExperiences(experiencesData.experiences);
-        console.log(experiencesData);
-      } catch (error) {
-        console.error("Error fetching experiences:", error);
-      }
-    };
-
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchExperiences();
-  }, []);
+  }, [fetchExperiences]);
 
   return (
     <>
@@ -34,6 +46,18 @@ export const Experiences = () => {
       <AddExperienceModal
         modalOptions={{ isOpen: isModalOpen, setIsOpen: setIsModalOpen }}
       />
+      {chosenExperience && (
+        <ExperienceDetailsModal
+          experienceModalProps={{
+            experienceDetails: chosenExperience,
+            modalOptions: {
+              isOpen: isEDModalOpen,
+              setIsOpen: setIsEDModalOpen,
+            },
+            onExperienceUpdated: fetchExperiences,
+          }}
+        />
+      )}
       <div className="bg-[#fff6f4] h-screen ml-69">
         <div
           className="flex flex-row bg-[#FFEDEA] text-[#a4544b] font-semibold text-xl p-4 text-left justify-between items-center px-10"
@@ -74,7 +98,10 @@ export const Experiences = () => {
           ) : (
             <div className="grid grid-cols-4 px-20 w-full">
               {experiences.map((exp) => (
-                <div className="flex flex-col text-left bg-white w-90 h-70 p-5 rounded-2xl shadow-md gap-3 hover:bg-[#ffded2] transition-all duration-300 hover:cursor-pointer active:mt-3">
+                <div
+                  className="flex flex-col text-left bg-white w-90 h-70 p-5 rounded-2xl shadow-md gap-3 hover:bg-[#FFFCF7] transition duration-300 hover:cursor-pointer active:mt-1"
+                  onClick={() => handleExperienceDetailsClick(exp)}
+                >
                   <span
                     className={`flex flex-row justify-center items-center text-xs w-fit p-2 gap-2 rounded-2xl ${
                       exp.is_completed ? "bg-[#E8E0BD]" : "bg-[#FFEDEA]"

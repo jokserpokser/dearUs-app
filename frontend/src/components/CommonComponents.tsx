@@ -36,3 +36,12 @@ export const DashboardItem = ({
     </div>
   );
 };
+
+export const Divider = ({ className = "" }: { className?: string }) => {
+  return (
+    <div
+      role="separator"
+      className={`w-full border-t border-gray-300 ${className}`}
+    />
+  );
+};
