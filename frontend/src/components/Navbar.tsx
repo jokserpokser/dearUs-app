@@ -27,17 +27,22 @@ export const Navbar = () => {
             Our safe harbor
           </span>
         </div>
-        <button
-          type="button"
-          aria-label={
-            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
-          }
-          aria-expanded={isMenuOpen}
-          className="rounded p-2 text-[#331200] md:hidden"
-          onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
-        >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <span className="max-w-32 truncate text-xs font-medium text-[#331200]">
+            {user?.name}
+          </span>
+          <button
+            type="button"
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+            aria-expanded={isMenuOpen}
+            className="rounded p-2 text-[#331200]"
+            onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
         <span className="mt-3 hidden items-center gap-1 text-xs font-medium text-[#331200] md:mt-10 md:flex md:justify-start">
           <img
             src={heartIcon}
