@@ -119,6 +119,7 @@ export const Navbar = () => {
               navigate("/");
             } else {
               logout();
+              navigate("/");
             }
           }}
         >
