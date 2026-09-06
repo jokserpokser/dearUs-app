@@ -1,12 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Menu, Sparkles, ListTodo, X, BookHeart, LogOut } from "lucide-react";
-import heartIcon from "../assets/icons/drawn-heart-icon.png";
 import { useState } from "react";
 import { isDemoMode } from "../services/demoMode";
 
 export const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user, couple, logout } = useAuth();
   const navigate = useNavigate();
   const demo = isDemoMode();
   const homeTarget = demo ? "/demo" : user ? "/dashboard" : "/";
@@ -31,9 +30,14 @@ export const Navbar = () => {
           </span>
         </div>
         <div className="flex items-center gap-2 md:hidden">
-          <span className="max-w-32 truncate text-xs font-medium text-[#331200]">
-            {user?.name}
-          </span>
+          <div className="flex max-w-40 flex-col text-center text-xs font-medium text-[#331200] gap-2">
+            <span className="truncate">{user?.name}</span>
+            {couple?.endearment && (
+              <span className="truncate">
+                {couple.endearment} <span className="text-[#a4544b]">♥</span>
+              </span>
+            )}
+          </div>
           <button
             type="button"
             aria-label={
@@ -46,14 +50,16 @@ export const Navbar = () => {
             {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-        <span className="mt-3 hidden items-center gap-1 text-xs font-medium text-[#331200] md:mt-10 md:flex md:justify-start">
-          <img
-            src={heartIcon}
-            alt="heart"
-            className="mr-2 inline-block h-4 w-4"
-          />
-          {user?.name}
-        </span>
+        <div className="mt-3 hidden items-start gap-1 text-xs font-medium text-[#331200] md:mt-10 md:flex">
+          <div className="flex min-w-0 flex-col gap-3 text-left">
+            <span className="truncate">{user?.name}</span>
+            {couple?.endearment && (
+              <span className="truncate">
+                {couple.endearment} <span className="text-[#a4544b]">♥</span>
+              </span>
+            )}
+          </div>
+        </div>
       </div>
 
       <div

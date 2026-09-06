@@ -29,7 +29,7 @@ interface CoupleData {
 
 export const ManageCouple = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const { user, setUser, setCouple } = useAuth();
   const [coupleData, setCoupleData] = useState<CoupleData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -114,6 +114,7 @@ export const ManageCouple = () => {
             }
           : current,
       );
+      setCouple(response.couple);
       setIsEditing(false);
     } catch (err) {
       console.error("Error updating couple details:", err);

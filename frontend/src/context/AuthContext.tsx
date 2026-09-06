@@ -1,10 +1,13 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import type { User } from "./models";
+import type { Couple, User } from "./models";
 import { demoUser, isDemoMode } from "../services/demoMode";
+import { CouplesService } from "../services/CouplesService";
 
 interface AuthContextType {
   user: User | null;
+  couple: Couple | null;
+  setCouple: (couple: Couple | null) => void;
   setUser: (user: User | null) => void;
   token: string | null;
   login: (user: User, token: string) => void;
@@ -15,6 +18,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
+  const demoActive = isDemoMode() || location.pathname.startsWith("/demo");
   const [user, setUser] = useState<User | null>(() => {
     try {
       const storedUser = localStorage.getItem("user");
@@ -33,9 +37,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return null;
     }
   });
+  const [couple, setCouple] = useState<Couple | null>(null);
+
+  useEffect(() => {
+    const coupleId = demoActive ? demoUser.couple_id : user?.couple_id;
+    if (!coupleId) return;
+
+    CouplesService.getMyCouple()
+      .then(({ couple: coupleData }) => setCouple(coupleData))
+      .catch(() => setCouple(null));
+  }, [demoActive, user?.couple_id]);
 
   const login = (userData: User, authToken: string) => {
     setUser(userData);
+    setCouple(null);
     setToken(authToken);
     localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("token", authToken);
@@ -43,17 +58,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = () => {
     setUser(null);
+    setCouple(null);
     setToken(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
   };
 
-  const demoActive = isDemoMode() || location.pathname.startsWith("/demo");
-
   return (
     <AuthContext.Provider
       value={{
         user: demoActive ? demoUser : user,
+        couple,
+        setCouple,
         setUser,
         token: demoActive ? "demo-token" : token,
         login,
