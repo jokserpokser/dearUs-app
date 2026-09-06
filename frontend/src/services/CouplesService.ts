@@ -49,6 +49,18 @@ export const CouplesService = {
       throw error;
     }
   },
+  updateMyCouple: async (anniversary?: string, endearment?: string) => {
+    try {
+      const response = await axiosInstance.put("/couples/me", {
+        anniversary: anniversary || null,
+        endearment: endearment || null,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error updating couple:", error);
+      throw error;
+    }
+  },
   joinCouple: async (inviteCode: string) => {
     try {
       const response = await axiosInstance.post("/couples/join", {

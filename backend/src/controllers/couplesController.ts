@@ -80,7 +80,16 @@ export const getMyCouple = async (req: AuthRequest, res: Response) => {
         .json({ message: "You are not part of a couple yet" });
     }
 
-    const couple = await db("couples").where({ id: user.couple_id }).first();
+    const couple = await db("couples")
+      .where({ id: user.couple_id })
+      .select(
+        "id",
+        "invite_code",
+        db.raw("anniversary::text as anniversary"),
+        "endearment",
+        "created_at",
+      )
+      .first();
 
     const members = await db("users")
       .where({ couple_id: user.couple_id })
@@ -90,6 +99,35 @@ export const getMyCouple = async (req: AuthRequest, res: Response) => {
     res.status(200).json({ couple, members });
   } catch (error) {
     console.error("getMyCouple error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// PUT /couples/me
+export const updateMyCouple = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user!.userId;
+    const { anniversary, endearment } = req.body;
+
+    const user = await db("users").where({ id: userId }).first();
+
+    if (!user.couple_id) {
+      return res
+        .status(404)
+        .json({ message: "You are not part of a couple yet" });
+    }
+
+    const [couple] = await db("couples")
+      .where({ id: user.couple_id })
+      .update({
+        anniversary: anniversary ? db.raw("?::date", [anniversary]) : null,
+        endearment: endearment || null,
+      })
+      .returning("*");
+
+    res.status(200).json({ couple });
+  } catch (error) {
+    console.error("updateMyCouple error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

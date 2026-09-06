@@ -12,6 +12,7 @@ interface InputFieldProps {
   autoComplete?: string;
   minLength?: number;
   maxLength?: number;
+  containerClassName?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -29,10 +30,11 @@ export const InputField = ({
   autoComplete,
   minLength,
   maxLength,
+  containerClassName = "",
   onChange,
 }: InputFieldProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className={`flex flex-col gap-1 ${containerClassName}`}>
       {label && (
         <label
           className={`text-sm font-semibold text-[#7c4439] ${labelCenter ? "self-center" : "self-start"}`}

@@ -42,7 +42,11 @@ export const CreateCouple = () => {
 
     try {
       const anniversaryString = formData.anniversary
-        ? formData.anniversary.toISOString().split("T")[0]
+        ? [
+            formData.anniversary.getFullYear(),
+            String(formData.anniversary.getMonth() + 1).padStart(2, "0"),
+            String(formData.anniversary.getDate()).padStart(2, "0"),
+          ].join("-")
         : undefined;
 
       const response = await CouplesService.createCouple(
