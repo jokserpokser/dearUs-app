@@ -94,10 +94,15 @@ export const ManageCouple = () => {
             String(anniversary.getDate()).padStart(2, "0"),
           ].join("-")
         : undefined;
-      const response = await CouplesService.updateMyCouple(
-        anniversaryString,
-        endearment,
-      );
+      const response = isDemoMode()
+        ? {
+            couple: {
+              ...coupleData!.couple,
+              anniversary: anniversaryString || null,
+              endearment: endearment || null,
+            },
+          }
+        : await CouplesService.updateMyCouple(anniversaryString, endearment);
       setCoupleData((current) =>
         current
           ? {
@@ -131,7 +136,9 @@ export const ManageCouple = () => {
     setLeaveError("");
 
     try {
-      await CouplesService.leaveCouple();
+      if (!isDemoMode()) {
+        await CouplesService.leaveCouple();
+      }
       const updatedUser = user ? { ...user, couple_id: null } : user;
       setUser(updatedUser);
       if (updatedUser) {
@@ -331,19 +338,21 @@ export const ManageCouple = () => {
             )}
           </div>
           {saveError && <p className="text-sm text-red-500">{saveError}</p>}
-          <div className="mt-4 w-full border-t border-[#ead6d1] pt-4 text-center">
-            <button
-              type="button"
-              onClick={handleLeaveCouple}
-              disabled={isLeaving}
-              className="text-sm font-semibold text-red-600 underline-offset-4 hover:text-red-700 hover:underline disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isLeaving ? "Leaving..." : "Leave Couple"}
-            </button>
-            {leaveError && (
-              <p className="mt-2 text-sm text-red-500">{leaveError}</p>
-            )}
-          </div>
+          {!isDemoMode() && (
+            <div className="mt-4 w-full border-t border-[#ead6d1] pt-4 text-center">
+              <button
+                type="button"
+                onClick={handleLeaveCouple}
+                disabled={isLeaving}
+                className="text-sm font-semibold text-red-600 underline-offset-4 hover:text-red-700 hover:underline disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isLeaving ? "Leaving..." : "Leave Couple"}
+              </button>
+              {leaveError && (
+                <p className="mt-2 text-sm text-red-500">{leaveError}</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>
