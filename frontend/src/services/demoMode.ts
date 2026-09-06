@@ -3,7 +3,7 @@ import type { User } from "../context/models";
 export const demoUser: User = {
   id: 101,
   email: "jamie.alex@example.com",
-  name: "Jamie & Alex",
+  name: "Jamie Curry",
   couple_id: 42,
   created_at: "2021-06-18T00:00:00.000Z",
 };
