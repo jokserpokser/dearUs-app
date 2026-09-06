@@ -55,7 +55,7 @@ export const Dashboard = () => {
                 className="mt-8 rounded-full bg-[#b45f53] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#9f5046]"
                 onClick={() => navigate("/manage-couple")}
               >
-                Manage your couple
+                Couple Details
               </button>
             )}
           </div>

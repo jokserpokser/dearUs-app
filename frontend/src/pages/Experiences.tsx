@@ -15,16 +15,26 @@ type Experience = {
   completed_at: string;
 };
 
+type ExperienceFilter = "all" | "completed" | "not_completed";
+
 export const Experiences = () => {
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEDModalOpen, setIsEDModalOpen] = useState(false);
   const [chosenExperience, setChosenExperience] = useState<Experience>();
+  const [experienceFilter, setExperienceFilter] =
+    useState<ExperienceFilter>("all");
 
   const fetchExperiences = useCallback(async () => {
     try {
       const experiencesData = await ExperiencesService.getExperiences();
-      setExperiences(experiencesData.experiences);
+      const sortedExperiences = [...experiencesData.experiences].sort(
+        (firstExperience, secondExperience) =>
+          Number(firstExperience.is_completed) -
+          Number(secondExperience.is_completed),
+      );
+
+      setExperiences(sortedExperiences);
     } catch (error) {
       console.error("Error fetching experiences:", error);
     }
@@ -34,6 +44,12 @@ export const Experiences = () => {
     setChosenExperience(exp);
     setIsEDModalOpen(true);
   };
+
+  const filteredExperiences = experiences.filter((experience) => {
+    if (experienceFilter === "completed") return experience.is_completed;
+    if (experienceFilter === "not_completed") return !experience.is_completed;
+    return true;
+  });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -83,6 +99,27 @@ export const Experiences = () => {
           </span>
           <span className="text-md">Memories we're chasing, together.</span>
         </div>
+        <div className="flex flex-wrap gap-2 px-6 pb-6 sm:px-10 lg:px-20">
+          {[
+            { label: "All", value: "all" },
+            { label: "Not Completed", value: "not_completed" },
+            { label: "Completed", value: "completed" },
+          ].map((filter) => (
+            <button
+              key={filter.value}
+              className={`rounded-full border px-4 py-2 text-sm transition-colors hover:cursor-pointer ${
+                experienceFilter === filter.value
+                  ? "border-[#B25F56] bg-[#B25F56] text-white"
+                  : "border-[#E8C7C1] bg-white text-[#A4544B] hover:bg-[#FFEDEA]"
+              }`}
+              onClick={() =>
+                setExperienceFilter(filter.value as ExperienceFilter)
+              }
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
         <div className="flex flex-col text-[#4E260B] justify-center items-center">
           {experiences.length <= 0 ? (
             <div className="flex w-full max-w-100 flex-col items-center gap-4 px-6">
@@ -97,9 +134,18 @@ export const Experiences = () => {
                 adventures you want to chase together.
               </span>
             </div>
+          ) : filteredExperiences.length <= 0 ? (
+            <div className="flex w-full max-w-100 flex-col items-center gap-4 px-6">
+              <span className="font-bold" style={{ fontFamily: "Literata" }}>
+                No matching experiences.
+              </span>
+              <span className="text-sm">
+                Try a different filter to see more of your shared journey.
+              </span>
+            </div>
           ) : (
             <div className="grid w-full grid-cols-1 gap-4 px-4 pb-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-10 xl:grid-cols-4">
-              {experiences.map((exp) => (
+              {filteredExperiences.map((exp) => (
                 <div
                   key={exp.id}
                   className="flex min-h-70 w-full flex-col gap-3 rounded-2xl bg-white p-5 text-left shadow-md transition duration-300 hover:cursor-pointer hover:bg-[#FFFCF7] active:mt-1"
