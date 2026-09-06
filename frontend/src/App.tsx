@@ -62,6 +62,14 @@ function App() {
         }
       />
       <Route
+        path="/demo"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/register"
         element={
           <PublicRoute>
@@ -110,7 +118,23 @@ function App() {
         }
       />
       <Route
+        path="/demo/manage-couple"
+        element={
+          <CoupleRoute>
+            <ManageCouple />
+          </CoupleRoute>
+        }
+      />
+      <Route
         path="/experiences"
+        element={
+          <CoupleRoute>
+            <Experiences />
+          </CoupleRoute>
+        }
+      />
+      <Route
+        path="/demo/experiences"
         element={
           <CoupleRoute>
             <Experiences />

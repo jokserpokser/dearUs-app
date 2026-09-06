@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import landingPageBackground from "../assets/images/landingpage-BG.png";
 
@@ -35,6 +35,14 @@ export const Home = () => {
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                onClick={() => navigate("/demo")}
+                className="flex items-center justify-center gap-3 rounded-full bg-[#f3ddd6] px-8 py-3.5 text-base font-semibold text-[#8f4c43] transition-colors hover:bg-[#ead0c8] hover:cursor-pointer"
+              >
+                Explore the demo
+                <Sparkles size={18} />
+              </button>
               <button
                 type="button"
                 onClick={() => navigate("/login")}

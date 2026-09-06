@@ -1,12 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Menu, Sparkles, ListTodo, X, BookHeart, LogOut } from "lucide-react";
 import heartIcon from "../assets/icons/drawn-heart-icon.png";
 import { useState } from "react";
+import { isDemoMode } from "../services/demoMode";
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
-  const homeTarget = user ? "/dashboard" : "/";
+  const navigate = useNavigate();
+  const demo = isDemoMode();
+  const homeTarget = demo ? "/demo" : user ? "/dashboard" : "/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -58,6 +61,7 @@ export const Navbar = () => {
       >
         <NavLink
           to={homeTarget}
+          end
           aria-label="Go to home"
           onClick={closeMenu}
           className={({ isActive }) =>
@@ -73,7 +77,7 @@ export const Navbar = () => {
         </NavLink>
         {user?.couple_id && (
           <NavLink
-            to="/manage-couple"
+            to={demo ? "/demo/manage-couple" : "/manage-couple"}
             aria-label="Go to Manage Couple"
             onClick={closeMenu}
             className={({ isActive }) =>
@@ -91,7 +95,7 @@ export const Navbar = () => {
 
         {user?.couple_id && (
           <NavLink
-            to="/experiences"
+            to={demo ? "/demo/experiences" : "/experiences"}
             aria-label="Go to experiences"
             onClick={closeMenu}
             className={({ isActive }) =>
@@ -111,7 +115,11 @@ export const Navbar = () => {
           className="flex flex-row items-center gap-5 rounded p-2 text-left text-sm text-[#331200] transition-all duration-300 hover:cursor-pointer hover:bg-[#A4544B] hover:text-white md:mt-auto"
           onClick={() => {
             closeMenu();
-            logout();
+            if (demo) {
+              navigate("/");
+            } else {
+              logout();
+            }
           }}
         >
           <LogOut size={16} />

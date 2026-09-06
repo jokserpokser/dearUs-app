@@ -2,6 +2,7 @@ import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import coupleBackground from "../assets/images/CoupleBG.png";
+import { isDemoMode } from "../services/demoMode";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -53,7 +54,11 @@ export const Dashboard = () => {
               <button
                 type="button"
                 className="mt-8 rounded-full bg-[#b45f53] px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#9f5046]"
-                onClick={() => navigate("/manage-couple")}
+                onClick={() =>
+                  navigate(
+                    isDemoMode() ? "/demo/manage-couple" : "/manage-couple",
+                  )
+                }
               >
                 Couple Details
               </button>

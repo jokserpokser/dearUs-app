@@ -1,5 +1,7 @@
 import { createContext, useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import type { User } from "./models";
+import { demoUser, isDemoMode } from "../services/demoMode";
 
 interface AuthContextType {
   user: User | null;
@@ -12,6 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
   const [user, setUser] = useState<User | null>(() => {
     try {
       const storedUser = localStorage.getItem("user");
@@ -45,8 +48,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.removeItem("token");
   };
 
+  const demoActive = isDemoMode() || location.pathname.startsWith("/demo");
+
   return (
-    <AuthContext.Provider value={{ user, setUser, token, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user: demoActive ? demoUser : user,
+        setUser,
+        token: demoActive ? "demo-token" : token,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
