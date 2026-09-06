@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CouplesService } from "../services/CouplesService";
 import { useAuth } from "../context/AuthContext";
+import { isDemoMode } from "../services/demoMode";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { InputField, ReadOnlyInputField } from "../components/formComponents";
@@ -136,7 +137,7 @@ export const ManageCouple = () => {
       if (updatedUser) {
         localStorage.setItem("user", JSON.stringify(updatedUser));
       }
-      navigate("/dashboard", { replace: true });
+      navigate(isDemoMode() ? "/demo" : "/dashboard", { replace: true });
     } catch (err) {
       console.error("Error leaving couple:", err);
       setLeaveError("Failed to leave couple. Please try again.");

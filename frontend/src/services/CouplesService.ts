@@ -50,6 +50,18 @@ export const CouplesService = {
     }
   },
   updateMyCouple: async (anniversary?: string, endearment?: string) => {
+    if (isDemoMode()) {
+      return {
+        couple: {
+          id: 42,
+          invite_code: "DEAR-US",
+          anniversary: anniversary || null,
+          endearment: endearment || null,
+          created_at: "2021-06-18T00:00:00.000Z",
+        },
+      };
+    }
+
     try {
       const response = await axiosInstance.put("/couples/me", {
         anniversary: anniversary || null,
@@ -62,6 +74,10 @@ export const CouplesService = {
     }
   },
   leaveCouple: async () => {
+    if (isDemoMode()) {
+      return;
+    }
+
     try {
       await axiosInstance.delete("/couples/me");
     } catch (error) {
