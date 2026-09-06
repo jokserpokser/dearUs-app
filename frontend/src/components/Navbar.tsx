@@ -30,7 +30,7 @@ export const Navbar = () => {
           </span>
         </div>
         <div className="flex items-center gap-2 md:hidden">
-          <div className="flex max-w-40 flex-col text-center text-xs font-medium text-[#331200] gap-2">
+          <div className="flex max-w-40 flex-col text-left text-xs font-medium text-[#331200] gap-2">
             <span className="truncate">{user?.name}</span>
             {couple?.endearment && (
               <span className="truncate">
