@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CouplesService } from "../services/CouplesService";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { InputField, ReadOnlyInputField } from "../components/formComponents";
@@ -27,6 +28,7 @@ interface CoupleData {
 
 export const ManageCouple = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useAuth();
   const [coupleData, setCoupleData] = useState<CoupleData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,6 +38,8 @@ export const ManageCouple = () => {
   const [saveError, setSaveError] = useState("");
   const [anniversary, setAnniversary] = useState<Date | null>(null);
   const [endearment, setEndearment] = useState("");
+  const [isLeaving, setIsLeaving] = useState(false);
+  const [leaveError, setLeaveError] = useState("");
 
   useEffect(() => {
     const fetchCoupleData = async () => {
@@ -110,6 +114,34 @@ export const ManageCouple = () => {
       setSaveError("Failed to save changes. Please try again.");
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleLeaveCouple = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to leave this couple? You will need a new invite code to join again.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setIsLeaving(true);
+    setLeaveError("");
+
+    try {
+      await CouplesService.leaveCouple();
+      const updatedUser = user ? { ...user, couple_id: null } : user;
+      setUser(updatedUser);
+      if (updatedUser) {
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      }
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      console.error("Error leaving couple:", err);
+      setLeaveError("Failed to leave couple. Please try again.");
+    } finally {
+      setIsLeaving(false);
     }
   };
 
@@ -298,6 +330,19 @@ export const ManageCouple = () => {
             )}
           </div>
           {saveError && <p className="text-sm text-red-500">{saveError}</p>}
+          <div className="mt-4 w-full border-t border-[#ead6d1] pt-4 text-center">
+            <button
+              type="button"
+              onClick={handleLeaveCouple}
+              disabled={isLeaving}
+              className="text-sm font-semibold text-red-600 underline-offset-4 hover:text-red-700 hover:underline disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isLeaving ? "Leaving..." : "Leave Couple"}
+            </button>
+            {leaveError && (
+              <p className="mt-2 text-sm text-red-500">{leaveError}</p>
+            )}
+          </div>
         </div>
       </div>
     </>

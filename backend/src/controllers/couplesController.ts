@@ -131,3 +131,25 @@ export const updateMyCouple = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// DELETE /couples/me
+export const leaveCouple = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user!.userId;
+    const updated = await db("users")
+      .where({ id: userId })
+      .whereNotNull("couple_id")
+      .update({ couple_id: null });
+
+    if (!updated) {
+      return res
+        .status(404)
+        .json({ message: "You are not part of a couple yet" });
+    }
+
+    res.status(204).send();
+  } catch (error) {
+    console.error("leaveCouple error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

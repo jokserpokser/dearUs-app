@@ -61,6 +61,14 @@ export const CouplesService = {
       throw error;
     }
   },
+  leaveCouple: async () => {
+    try {
+      await axiosInstance.delete("/couples/me");
+    } catch (error) {
+      console.error("Error leaving couple:", error);
+      throw error;
+    }
+  },
   joinCouple: async (inviteCode: string) => {
     try {
       const response = await axiosInstance.post("/couples/join", {
