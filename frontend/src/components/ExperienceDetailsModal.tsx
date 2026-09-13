@@ -1,5 +1,6 @@
 import { Camera, CircleCheck, LoaderCircle, Plus, Trash } from "lucide-react";
 import { Divider } from "./CommonComponents";
+import { Modal } from "./Modal";
 import { ExperiencesService } from "../services/ExperiencesService";
 import { useRef, useState } from "react";
 
@@ -103,45 +104,42 @@ export const ExperienceDetailsModal = ({
   };
 
   return (
-    <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
-          onClick={() => setIsOpen(false)}
-        >
-          <div
-            className="flex max-h-[92svh] w-[calc(100%-1.5rem)] max-w-180 flex-col items-center gap-6 overflow-y-auto rounded-3xl bg-white p-4 shadow-lg sm:gap-10 sm:p-8 md:p-10"
-            onClick={(event) => event.stopPropagation()}
+    <Modal
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      labelledBy="experience-details-title"
+      className="flex w-[calc(100%-1.5rem)] max-w-180 flex-col items-center gap-6 p-4 sm:gap-10 sm:p-8 md:p-10"
+    >
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={handlePhotoUpload}
+      />
+
+      <div className="flex flex-col gap-4 items-center w-full">
+        <div className="flex flex-col items-start text-left w-full">
+          <div className="flex flex-row mb-5 justify-between items-center w-full">
+            <span
+              className={`flex flex-row justify-center items-center text-xs w-fit p-2 gap-2 rounded-2xl text-[#371400] ${
+                is_completed ? "bg-[#E8E0BD]" : "bg-[#FFEDEA]"
+              }`}
+            >
+              {is_completed ? (
+                <CircleCheck size={14} />
+              ) : (
+                <LoaderCircle size={14} />
+              )}
+
+              {is_completed ? "Completed" : "Not Completed"}
+            </span>
+          </div>
+          <span
+            id="experience-details-title"
+            className="text-[#371400] text-2xl font-semibold"
+            style={{ fontFamily: "Literata" }}
           >
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handlePhotoUpload}
-            />
-
-            <div className="flex flex-col gap-4 items-center w-full">
-              <div className="flex flex-col items-start text-left w-full">
-                <div className="flex flex-row mb-5 justify-between items-center w-full">
-                  <span
-                    className={`flex flex-row justify-center items-center text-xs w-fit p-2 gap-2 rounded-2xl text-[#371400] ${
-                      is_completed ? "bg-[#E8E0BD]" : "bg-[#FFEDEA]"
-                    }`}
-                  >
-                    {is_completed ? (
-                      <CircleCheck size={14} />
-                    ) : (
-                      <LoaderCircle size={14} />
-                    )}
-
-                    {is_completed ? "Completed" : "Not Completed"}
-                  </span>
-                </div>
-                <span
-                  className="text-[#371400] text-2xl font-semibold"
-                  style={{ fontFamily: "Literata" }}
-                >
                   {title}
                 </span>
                 <span className="text-sm text-[#A16A4B] font-light">
@@ -300,9 +298,6 @@ export const ExperienceDetailsModal = ({
                 )}
               </div>
             </div>
-          </div>
-        </div>
-      )}
-    </>
+    </Modal>
   );
 };
