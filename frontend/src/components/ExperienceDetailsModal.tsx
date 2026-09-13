@@ -204,7 +204,7 @@ export const ExperienceDetailsModal = ({
                     </div>
                   )}
 
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1 text-center">
                     <span
                       className="text-lg font-semibold text-[#371400] sm:text-2xl"
                       style={{ fontFamily: "Literata" }}
