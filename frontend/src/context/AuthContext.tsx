@@ -4,6 +4,19 @@ import type { Couple, User } from "./models";
 import { demoUser, isDemoMode } from "../services/demoMode";
 import { CouplesService } from "../services/CouplesService";
 
+const isTokenExpired = (token: string): boolean => {
+  try {
+    const payload = token.split(".")[1];
+    if (!payload) return true;
+    const decoded = JSON.parse(
+      atob(payload.replace(/-/g, "+").replace(/_/g, "/")),
+    ) as { exp?: number };
+    return typeof decoded.exp === "number" && decoded.exp * 1000 <= Date.now();
+  } catch {
+    return true;
+  }
+};
+
 interface AuthContextType {
   user: User | null;
   couple: Couple | null;
@@ -20,6 +33,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const demoActive = isDemoMode() || location.pathname.startsWith("/demo");
   const [user, setUser] = useState<User | null>(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken && isTokenExpired(storedToken)) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      return null;
+    }
     try {
       const storedUser = localStorage.getItem("user");
       return storedUser ? JSON.parse(storedUser) : null;
@@ -29,13 +48,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   });
   const [token, setToken] = useState<string | null>(() => {
-    try {
-      const storedToken = localStorage.getItem("token");
-      return storedToken;
-    } catch (e) {
-      console.error("Error parsing token from localStorage:", e);
-      return null;
-    }
+    const storedToken = localStorage.getItem("token");
+    return storedToken && isTokenExpired(storedToken)
+      ? null
+      : storedToken;
   });
   const [couple, setCouple] = useState<Couple | null>(null);
 

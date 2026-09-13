@@ -17,4 +17,23 @@ axiosInstance.interceptors.request.use(
   },
 );
 
+const AUTH_ENDPOINTS = ["/auth/login", "/auth/register"];
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      error?.response?.status === 401 &&
+      !AUTH_ENDPOINTS.includes(error.config?.url ?? "")
+    ) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      if (window.location.pathname !== "/") {
+        window.location.assign("/");
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 export default axiosInstance;
