@@ -1,4 +1,5 @@
 import { Navbar } from "../components/Navbar";
+import { CoupleDuration } from "../components/CoupleDuration";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import coupleBackground from "../assets/images/CoupleBG.png";
@@ -6,7 +7,7 @@ import { isDemoMode } from "../services/demoMode";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, couple } = useAuth();
 
   return (
     <>
@@ -32,6 +33,10 @@ export const Dashboard = () => {
               Keep the little plans, memories, and milestones that make your
               story yours.
             </p>
+
+            {user?.couple_id && (
+              <CoupleDuration anniversary={couple?.anniversary} />
+            )}
 
             {!user?.couple_id ? (
               <div className="mt-8 flex w-full max-w-md flex-col gap-3 text-sm font-semibold sm:flex-row">
