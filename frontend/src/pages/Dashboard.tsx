@@ -16,12 +16,6 @@ export const Dashboard = () => {
         <div className="relative flex min-h-[calc(100svh-64px)] items-center overflow-hidden px-6 py-14 sm:px-10 lg:min-h-screen lg:px-16">
           <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(rgba(181,111,96,0.2)_0.7px,transparent_0.7px)] bg-size-[18px_18px]" />
           <div className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center lg:items-start lg:text-left">
-            <span
-              className="text-3xl font-semibold text-[#b45f53]"
-              style={{ fontFamily: "Literata" }}
-            >
-              DearUs
-            </span>
             <span className="mt-6 rounded-full border border-[#f0b8a5] bg-[#fff8f5] px-4 py-2 text-sm font-medium text-[#7c4439]">
               Your shared space
             </span>
