@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
-import { Plus, Heart, CircleCheck, LoaderCircle } from "lucide-react";
+import { Plus, Heart } from "lucide-react";
 import { ExperiencesService } from "../services/ExperiencesService";
 import { AddExperienceModal } from "../components/AddExperienceModal";
 import { ExperienceDetailsModal } from "../components/ExperienceDetailsModal";
+import { ExperienceCard } from "../components/ExperienceCard";
 
 type Experience = {
   id: number;
@@ -146,38 +147,11 @@ export const Experiences = () => {
           ) : (
             <div className="grid w-full grid-cols-1 gap-4 px-4 pb-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-10 xl:grid-cols-4">
               {filteredExperiences.map((exp) => (
-                <div
+                <ExperienceCard
                   key={exp.id}
-                  className="flex min-h-70 w-full flex-col gap-3 rounded-2xl bg-white p-5 text-left shadow-md transition duration-300 hover:cursor-pointer hover:bg-[#FFFCF7] active:mt-1"
-                  onClick={() => handleExperienceDetailsClick(exp)}
-                >
-                  <span
-                    className={`flex flex-row justify-center items-center text-xs w-fit p-2 gap-2 rounded-2xl ${
-                      exp.is_completed ? "bg-[#E8E0BD]" : "bg-[#FFEDEA]"
-                    }`}
-                  >
-                    {exp.is_completed ? (
-                      <CircleCheck size={14} />
-                    ) : (
-                      <LoaderCircle size={14} />
-                    )}
-
-                    {exp.is_completed ? "Completed" : "Not Completed"}
-                  </span>
-                  <div className="flex flex-col">
-                    <span
-                      className="text-[#371400] text-xl font-semibold"
-                      style={{ fontFamily: "Literata" }}
-                    >
-                      {exp.title}
-                    </span>
-                    {exp.notes && (
-                      <span className="text-[#a4544b] text-sm">
-                        {exp.notes}
-                      </span>
-                    )}
-                  </div>
-                </div>
+                  experience={exp}
+                  onClick={handleExperienceDetailsClick}
+                />
               ))}
             </div>
           )}
