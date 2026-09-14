@@ -64,7 +64,7 @@ export const Dashboard = () => {
             )}
           </div>
 
-          <div className="absolute bottom-0 right-0 top-0 hidden w-[48%] overflow-hidden lg:block">
+          <div className="relative hidden w-[48%] shrink-0 overflow-hidden lg:block lg:self-stretch lg:-mr-16 lg:-my-14 lg:ml-16">
             <img
               src={coupleBackground}
               alt="A couple sharing a moment together"
