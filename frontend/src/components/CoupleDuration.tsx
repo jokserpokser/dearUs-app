@@ -32,9 +32,6 @@ const countDuration = (
   return { years, months, days };
 };
 
-const pluralize = (count: number, singular: string, plural: string) =>
-  count === 1 ? singular : plural;
-
 export const CoupleDuration = ({
   anniversary,
 }: {
@@ -42,16 +39,14 @@ export const CoupleDuration = ({
 }) => {
   const anniversaryDate = anniversary ? parseAnniversary(anniversary) : null;
   const duration =
-    anniversaryDate != null
-      ? countDuration(anniversaryDate, new Date())
-      : null;
+    anniversaryDate != null ? countDuration(anniversaryDate, new Date()) : null;
 
   if (duration == null) return null;
 
   const values: DurationValue[] = [
-    { value: String(duration.years), label: pluralize(duration.years, "year", "years") },
-    { value: String(duration.months), label: pluralize(duration.months, "month", "months") },
-    { value: String(duration.days), label: pluralize(duration.days, "day", "days") },
+    { value: String(duration.years), label: "YEARS" },
+    { value: String(duration.months), label: "MONTHS" },
+    { value: String(duration.days), label: "DAYS" },
   ];
 
   const rendered = values.map((unit, index) => (
@@ -60,24 +55,24 @@ export const CoupleDuration = ({
       className="flex flex-col items-center gap-0.5 text-center"
     >
       <span
-        className="text-2xl font-semibold leading-none text-[#b45f53] sm:text-3xl"
+        className="text-3xl font-semibold leading-none text-[#b45f53] sm:text-4xl"
         style={{ fontFamily: "Literata" }}
       >
         {unit.value}
       </span>
-      <span className="text-[10px] font-medium uppercase tracking-wide text-[#7c4439] sm:text-xs">
+      <span className="text-[10px] font-medium tracking-wide text-[#877266] sm:text-xs">
         {unit.label}
       </span>
     </span>
   ));
 
   return (
-    <div className="mt-8 flex w-full max-w-md items-center justify-center gap-x-3 whitespace-nowrap rounded-2xl border border-[#f0b8a5] bg-[#fff8f5] px-5 py-4 shadow-sm">
-      <span className="flex items-center gap-1.5 text-sm font-semibold text-[#7c4439]">
+    <div className="mt-8 flex w-full max-w-lg items-center justify-between gap-x-4 whitespace-nowrap rounded-2xl border border-[#f0b8a5] bg-[#fff8f5] px-6 py-4 shadow-sm sm:px-8">
+      <span className="flex shrink-0 items-center gap-1.5 text-sm font-semibold text-[#7c4439]">
         <Heart size={15} className="fill-[#b45f53] text-[#b45f53]" />
         Together for
       </span>
-      <span className="flex items-center gap-x-2.5">{rendered}</span>
+      <span className="flex items-center gap-x-3 sm:gap-x-5">{rendered}</span>
     </div>
   );
 };
