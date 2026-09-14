@@ -158,7 +158,7 @@ export const ManageCouple = () => {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center bg-[#fff6d2] pt-24 md:ml-69 md:pt-0">
+        <div className="min-h-screen flex items-center justify-center bg-[#fff6d2] pt-24 md:ml-59 md:pt-0">
           <div className="text-center">
             <p className="text-lg text-[#545454]">Loading couple details...</p>
           </div>
@@ -171,7 +171,7 @@ export const ManageCouple = () => {
     return (
       <>
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center bg-[#fff6d2] pt-24 md:ml-69 md:pt-0">
+        <div className="min-h-screen flex items-center justify-center bg-[#fff6d2] pt-24 md:ml-59 md:pt-0">
           <div className="text-center">
             <p className="text-lg text-red-500 mb-4">{error}</p>
             <button
@@ -205,7 +205,7 @@ export const ManageCouple = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-[#fff6d2] px-4 pb-8 pt-24 md:ml-69 md:px-6 md:pt-0">
+      <div className="min-h-screen bg-[#fff6d2] px-4 pb-8 pt-24 md:ml-59 md:px-6 md:pt-0">
         <div className="mx-auto mb-8 mt-8 max-w-2xl md:mb-12 md:mt-20">
           <h1 className="text-[#693B20] font-semibold text-center">
             Manage Couple

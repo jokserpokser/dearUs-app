@@ -56,7 +56,7 @@ export const JoinCouple = () => {
   return (
     <>
       <Navbar />
-      <main className="fixed inset-0 flex flex-col items-center justify-center overflow-y-auto bg-[#fff9f7] pt-16 md:ml-69 md:pt-0">
+      <main className="fixed inset-0 flex flex-col items-center justify-center overflow-y-auto bg-[#fff9f7] pt-16 md:ml-59 md:pt-0">
         <section className="flex min-h-full w-full flex-col items-center justify-center px-6 py-10 lg:px-8">
           <div className="flex flex-col items-center gap-3">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#ffe9e2] text-[#b45f53]">
