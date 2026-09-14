@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
+import { useLockBodyScroll } from "../hooks/useLockBodyScroll";
 
 const FOCUSABLE_SELECTOR = [
   "a[href]",
@@ -30,6 +31,8 @@ export const Modal = ({
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
 
+  useLockBodyScroll(isOpen);
+
   useEffect(() => {
     onCloseRef.current = onClose;
   });
@@ -38,16 +41,6 @@ export const Modal = ({
     if (!isOpen) return;
 
     previousFocusRef.current = document.activeElement as HTMLElement | null;
-
-    const body = document.body;
-    const { overflow, paddingRight } = body.style;
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
-    body.style.overflow = "hidden";
-    if (scrollbarWidth > 0) {
-      body.style.paddingRight = `${scrollbarWidth}px`;
-    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -84,8 +77,6 @@ export const Modal = ({
     panelRef.current?.focus();
 
     return () => {
-      body.style.overflow = overflow;
-      body.style.paddingRight = paddingRight;
       document.removeEventListener("keydown", handleKeyDown);
       previousFocusRef.current?.focus();
     };

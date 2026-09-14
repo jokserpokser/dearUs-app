@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { Menu, Sparkles, X, LogOut, House, Heart } from "lucide-react";
 import { useState } from "react";
 import { isDemoMode } from "../services/demoMode";
+import { useLockBodyScroll } from "../hooks/useLockBodyScroll";
 
 export const Navbar = () => {
   const { user, couple, logout } = useAuth();
@@ -11,6 +12,8 @@ export const Navbar = () => {
   const homeTarget = demo ? "/demo" : user ? "/dashboard" : "/";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const closeMenu = () => setIsMenuOpen(false);
+
+  useLockBodyScroll(isMenuOpen);
   const initials =
     user?.name
       ?.split(" ")
@@ -86,7 +89,7 @@ export const Navbar = () => {
         </div>
 
         <div
-          className={`${isMenuOpen ? "flex" : "hidden"} absolute left-0 top-full z-50 w-full flex-col gap-2 border-b border-[#f1e0dc] bg-[#fff9f7] p-6 md:static md:flex md:h-full md:w-auto md:border-0 md:bg-transparent md:p-0 md:pt-12`}
+          className={`${isMenuOpen ? "flex" : "hidden"} absolute left-0 top-full z-50 max-h-[calc(100dvh-6rem)] w-full flex-col gap-2 overflow-y-auto border-b border-[#f1e0dc] bg-[#fff9f7] p-6 md:static md:flex md:h-full md:max-h-none md:w-auto md:overflow-visible md:border-0 md:bg-transparent md:p-0 md:pt-12`}
         >
           <NavLink
             to={homeTarget}
