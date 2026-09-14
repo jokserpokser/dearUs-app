@@ -12,7 +12,7 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen overflow-y-auto bg-[#fff9f7] pt-16 text-[#241817] md:ml-69 md:pt-0">
+      <div className="min-h-screen overflow-y-auto bg-[#fff9f7] pt-16 text-[#241817] md:ml-80 md:pt-0">
         <div className="relative flex min-h-[calc(100svh-64px)] items-center overflow-hidden px-6 py-14 sm:px-10 lg:min-h-screen lg:px-16">
           <div className="pointer-events-none absolute inset-0 opacity-35 bg-[radial-gradient(rgba(181,111,96,0.2)_0.7px,transparent_0.7px)] bg-size-[18px_18px]" />
           <div className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center lg:items-start lg:text-left">
