@@ -25,6 +25,7 @@ export const Login = () => {
   });
 
   const [generalError, setGeneralError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,6 +54,7 @@ export const Login = () => {
     }
 
     try {
+      setIsLoading(true);
       const response = await AuthService.login(email, formData.password);
       const { user, token } = response;
 
@@ -63,6 +65,8 @@ export const Login = () => {
       setGeneralError(
         "Failed to login. Please check your credentials and try again.",
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -132,7 +136,7 @@ export const Login = () => {
           />
 
           <span className="mt-5 flex w-full max-w-xs flex-col self-center">
-            <SubmitButton text="Login" />
+            <SubmitButton text="Login" loading={isLoading} />
           </span>
           {generalError && (
             <span className="text-xs text-start text-[#b45f53]">

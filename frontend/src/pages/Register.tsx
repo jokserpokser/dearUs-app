@@ -37,6 +37,7 @@ export const Register = () => {
   });
 
   const [generalError, setGeneralError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -86,6 +87,7 @@ export const Register = () => {
     };
 
     try {
+      setIsLoading(true);
       const response = await AuthService.register(
         userData.name,
         userData.email,
@@ -99,6 +101,8 @@ export const Register = () => {
     } catch (error) {
       console.error("Error registering user:", error);
       setGeneralError("Failed to register. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -204,7 +208,7 @@ export const Register = () => {
           />
 
           <span className="mt-5 flex w-full max-w-xs flex-col self-center">
-            <SubmitButton text="Create my account" />
+            <SubmitButton text="Create my account" loading={isLoading} />
           </span>
           {generalError && (
             <span className="text-xs text-start text-[#b45f53]">

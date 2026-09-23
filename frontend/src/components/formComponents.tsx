@@ -1,3 +1,5 @@
+import { LoaderCircle } from "lucide-react";
+
 interface InputFieldProps {
   label?: string;
   type: string;
@@ -77,12 +79,20 @@ export const InputField = ({
   );
 };
 
-export const SubmitButton = ({ text }: { text: string }) => {
+export const SubmitButton = ({
+  text,
+  loading = false,
+}: {
+  text: string;
+  loading?: boolean;
+}) => {
   return (
     <button
       type="submit"
-      className="w-full rounded-lg border-2 border-[#b45f53] bg-[#b45f53] px-5 py-2 font-semibold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-[#9f5046]"
+      disabled={loading}
+      className="flex w-full flex-row items-center justify-center gap-3 rounded-lg border-2 border-[#b45f53] bg-[#b45f53] px-5 py-2 font-semibold text-white transition-colors duration-300 hover:cursor-pointer hover:bg-[#9f5046] disabled:cursor-not-allowed disabled:border-[#d1d1d1] disabled:bg-[#d1d1d1]"
     >
+      {loading && <LoaderCircle size={20} className="animate-spin" />}
       {text}
     </button>
   );
